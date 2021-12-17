@@ -19,7 +19,7 @@
     "eject": "react-scripts eject"
   },
   "lint-staged": {
-    "src/*": "eslint"
+    "src/**": "eslint"
   },
   "eslintConfig": {
     "extends": [
