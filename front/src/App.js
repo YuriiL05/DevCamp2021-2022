@@ -1,4 +1,4 @@
-import {MainPageContainer} from "./conteiners/mainPage/MainPage";
+import {MainPageContainer} from './conteiners/mainPage/MainPage';
 
 import './App.css';
 
