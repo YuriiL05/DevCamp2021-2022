@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
 
+const config = require("./services/config");
+
+const port = config.appPort
+
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(process.env.PORT);
+app.listen(port);
