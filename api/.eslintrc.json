@@ -9,11 +9,10 @@
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": 13,
-    "sourceType": "module"
+    "ecmaVersion": 12
   },
+  "plugins": ["prettier"],
   "rules": {
-    "quotes": ["warn", "single"],
-    "semi": ["warn", "never"]
+    "prettier/prettier": "error"
   }
 }

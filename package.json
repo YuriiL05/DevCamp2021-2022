@@ -1,0 +1,24 @@
+{
+  "name": "devcamp2021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuriiL05/DevCamp2021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuriiL05/DevCamp2021/issues"
+  },
+  "homepage": "https://github.com/YuriiL05/DevCamp2021#readme",
+  "devDependencies": {
+    "husky": "^7.0.4"
+  }
+}
