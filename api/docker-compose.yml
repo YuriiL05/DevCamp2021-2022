@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    container_name: network_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./tmp/db_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+
+  app:
+    image: node
+    container_name: my_app
+    restart: always
+    working_dir: /api
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/api
+    command: npm run start
