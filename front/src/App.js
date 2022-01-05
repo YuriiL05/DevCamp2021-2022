@@ -1,11 +1,11 @@
-import {MainPageContainer} from './conteiners/mainPage/MainPage';
+import MainPageContainer from './conteiners/mainPage/MainPage';
 
 import './App.css';
 
-function App() {
+const App = function () {
   return (
-    <MainPageContainer about='Testing'/>
+    <MainPageContainer about="Testing" />
   );
-}
+};
 
 export default App;

@@ -1,5 +1,10 @@
-export function Content( {postAbout}) {
-    return (
-        <div>New post about {postAbout}</div>
-    );
-}
+const Content = function ({ postAbout }) {
+  return (
+    <div>
+      New post about
+      {postAbout}
+    </div>
+  );
+};
+
+export default Content;

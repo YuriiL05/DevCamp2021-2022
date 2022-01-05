@@ -1,10 +1,9 @@
-import {Content} from './content/Content';
+import Content from './content/Content';
 
-export function MainPage( { newPost } ) {
-    return (
-        <>
-            <Content postAbout={newPost}/>
-        </>
-    );
-}
+const MainPage = function ({ newPost }) {
+  return (
+    <Content postAbout={newPost} />
+  );
+};
 
+export default MainPage;
