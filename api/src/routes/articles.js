@@ -38,6 +38,19 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+//get likes for the current article
+router.get('/:id/likes', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const likes = await db('Likes').where({ ArticleID: id }).timeout(10000);
+
+    res.status(200).send(likes);
+  } catch (e) {
+    res.status(500).send({ error: 'Likes cannot be loaded', e });
+  }
+});
+
 router.post('/', async (req, res) => {
   const newArticleData = req.body;
 
@@ -51,6 +64,24 @@ router.post('/', async (req, res) => {
     }
   } else {
     res.status(400).send({ error: 'Article information is empty' });
+  }
+});
+
+//add likes for the current article
+router.post('/:id/likes', async (req, res) => {
+  const articleId = req.params.id;
+  const userId = req.body.UserID;
+  console.log(articleId);
+  console.log(userId);
+  try {
+    await db('Likes').insert({
+      UserID: userId,
+      ArticleID: articleId,
+    });
+
+    res.status(200).send('New like was added');
+  } catch (e) {
+    res.status(500).send({ error: 'Lake cannot be added', e });
   }
 });
 
@@ -97,6 +128,26 @@ router.delete('/:id', async (req, res) => {
     }
   } else {
     res.status(400).send({ error: 'Article Id is not correct' });
+  }
+});
+
+//remove likes for the current article
+router.delete('/:id/likes/:userId', async (req, res) => {
+  const articleId = req.params.id;
+  const userId = req.params.userId;
+
+  try {
+    const isDeleted = await db('Likes')
+      .where({ ArticleID: articleId, UserID: userId })
+      .delete();
+
+    res.send(
+      isDeleted
+        ? `Like for user Id: ${userId} is deleted`
+        : `Like for user Id: ${userId} is absent`
+    );
+  } catch (e) {
+    res.status(500).send({ error: 'Like cannot be deleted', e });
   }
 });
 
