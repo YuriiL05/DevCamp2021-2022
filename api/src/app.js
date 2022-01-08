@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const config = require('./services/config');
 const userRouters = require('./routes/users');
 const articleRouters = require('./routes/articles');
+const commentRouters = require('./routes/comments');
 
 const port = config.appPort;
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.use('/users', userRouters);
 app.use('/articles', articleRouters);
+app.use('/comments', commentRouters);
 
 app.listen(port, () => {
   console.log(`Started at port ${port}`);

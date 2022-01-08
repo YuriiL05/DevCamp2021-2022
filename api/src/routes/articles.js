@@ -51,6 +51,31 @@ router.get('/:id/likes', async (req, res) => {
   }
 });
 
+//get all comments for an article
+router.get('/:id/comments', async (req, res) => {
+  const id = req.params.id;
+
+  if (Number.isInteger(+id)) {
+    try {
+      const comments = await db('Comments')
+        .where({ ArticleID: id })
+        .timeout(10000);
+
+      if (comments.length > 0) {
+        res.status(200).send(comments);
+      } else {
+        res
+          .status(404)
+          .send({ error: `Comments for article Id: ${id} is absent` });
+      }
+    } catch (e) {
+      res.status(500).send({ error: 'Comments cannot be loaded', e });
+    }
+  } else {
+    res.status(400).send({ error: 'Article Id is not correct' });
+  }
+});
+
 router.post('/', async (req, res) => {
   const newArticleData = req.body;
 
