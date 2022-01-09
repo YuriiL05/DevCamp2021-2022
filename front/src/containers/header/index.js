@@ -1,19 +1,20 @@
 import React from 'react';
 
-export const HeaderContainer = ({ setPage }) => {
+import './style.css';
 
-  const pages = ['Articles', 'Add Article', 'Profile'];
+export const HeaderContainer = ({ changePage, pages }) => {
 
-  const changePage = (selectedPage) => {
-    setPage(+selectedPage.target.value)
-  };
+  const selectArticlesPage = () => { changePage(pages.articles) };
+  const selectAddArticlePage = () => { changePage(pages.addArticle) };
+  const selectProfilePage = () => { changePage(pages.profile) };
+
 
   return (
     <>
       <header>
-        <button onClick={changePage} value={0}>{pages[0]}</button>
-        <button onClick={changePage} value={1}>{pages[1]}</button>
-        <button onClick={changePage} value={2}>{pages[2]}</button>
+        <button onClick={selectArticlesPage}> {pages.articles}</button>
+        <button onClick={selectAddArticlePage}>{pages.addArticle}</button>
+        <button onClick={selectProfilePage}>{pages.profile}</button>
       </header>
     </>
   );

@@ -19,7 +19,7 @@
     "eject": "react-scripts eject"
   },
   "lint-staged": {
-    "src/**": "eslint"
+    "src/**.(js|jsx)": "eslint"
   },
   "eslintConfig": {
     "extends": [
@@ -40,10 +40,11 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.5.0",
+    "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.2",
     "eslint-config-react-app": "^7.0.0",
     "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-css-modules": "^2.11.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",

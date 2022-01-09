@@ -1,16 +1,18 @@
 import React from 'react';
 
-import {AddArticle} from '../../components/addArticle';
-import {Articles} from '../../components/articles';
-import {Profile} from '../../components/profile';
+import { AddArticle } from '../../components/addArticle';
+import { Articles } from '../../components/articles';
+import { Profile } from '../../components/profile';
 
-export const BodyContainer = ({ page }) => {
+import './style.css';
+
+export const BodyContainer = ({ page, pages }) => {
 
   return (
-    <>
-      {page === 0 && <Articles/>}
-      {page === 1 && <AddArticle/>}
-      {page === 2 && <Profile/>}
-    </>
+    <div className={"body-content"}>
+      {page === pages.articles && <Articles/>}
+      {page === pages.addArticle && <AddArticle/>}
+      {page === pages.profile && <Profile/>}
+    </div>
   );
 };
