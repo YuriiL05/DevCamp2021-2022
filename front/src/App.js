@@ -1,11 +1,18 @@
-import MainPageContainer from './conteiners/mainPage/MainPage';
+import {useState} from 'react';
+
+import { HeaderContainer } from './containers/header';
+import { BodyContainer } from './containers/body';
 
 import './App.css';
 
-const App = function () {
+export const App = () => {
+
+  const [page, setPage] = useState(0);
+
   return (
-    <MainPageContainer about="Testing" />
+    <div className="App">
+      <HeaderContainer setPage={setPage}/>
+      <BodyContainer page={page}/>
+    </div>
   );
 };
-
-export default App;
