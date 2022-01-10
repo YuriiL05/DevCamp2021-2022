@@ -15,8 +15,8 @@ export const App = () => {
 
   const [page, setPage] = useState(pages.articles);
 
-  const changePage = (selectedPage) => {
-    setPage(selectedPage)
+  const changePage = (selectedPage) => () => {
+    setPage(selectedPage);
   };
 
   return (
