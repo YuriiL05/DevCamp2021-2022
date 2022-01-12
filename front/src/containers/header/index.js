@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import './style.css';
 
-export const HeaderContainer = ({ changePage, pages }) => {
+export const HeaderContainer = ({ pages }) => {
+
   return (
     <>
       <header>
-        <button onClick={changePage(pages.articles)}> {pages.articles}</button>
-        <button onClick={changePage(pages.addArticle)}>{pages.addArticle}</button>
-        <button onClick={changePage(pages.profile)}>{pages.profile}</button>
+        <Link to={pages.articles} className={"btn"}>Articles</Link>
+        <Link to={pages.newArticle} className={"btn"}>New Article</Link>
+        <Link to={pages.profile} className={"btn"}>Profile</Link>
       </header>
     </>
   );
