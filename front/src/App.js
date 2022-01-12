@@ -11,12 +11,6 @@ export const App = () => {
     profile: 'profile'
   };
 
-  // const [page, setPage] = useState(pages.articles);
-  //
-  // const changePage = (selectedPage) => () => {
-  //   setPage(selectedPage);
-  // };
-
   return (
       <div className="App">
         <HeaderContainer pages={pages}/>
