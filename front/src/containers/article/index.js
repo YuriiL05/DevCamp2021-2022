@@ -36,12 +36,4 @@ export const ArticleContainer = () => {
       <NotFound/>
     );
   }
-
-    // return (
-    //   <div className={"article"}>
-    //     {(id.match(validation.digits)) && <Article id={id} test={"Digits"}/>}
-    //     {(id.match(validation.capitalLetters)) && <Article id={id} test={"A-Z"}/>}
-    //     {(id.match(validation.file)) && <Article id={id} test={"file"}/>}
-    //   </div>
-    // );
 };

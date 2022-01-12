@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { HeaderContainer } from './containers/header';
 import { BodyContainer } from './containers/body';
 
@@ -10,12 +12,6 @@ export const App = () => {
     newArticle: 'new-article',
     profile: 'profile'
   };
-
-  // const [page, setPage] = useState(pages.articles);
-  //
-  // const changePage = (selectedPage) => () => {
-  //   setPage(selectedPage);
-  // };
 
   return (
       <div className="App">
