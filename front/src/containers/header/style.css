@@ -3,8 +3,28 @@ header {
     box-shadow: 0 5px 5px #282c34;
     background-color: #282c34;
     justify-content: center;
+    min-height: 4vh;
+    display: flex;
 }
 
 button {
     margin: 20px 15px;
+}
+
+.btn:link, .btn:visited {
+    display: inline-block;
+    font: bold 12px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 3px 7px 3px 7px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    margin: 20px 15px;
+}
+
+.btn:hover, .btn:active {
+    background-color: #c9c9c9;
 }
