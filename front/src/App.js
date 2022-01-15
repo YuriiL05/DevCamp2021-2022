@@ -1,22 +1,29 @@
-import { useState } from 'react';
+import { Route, Routes } from "react-router-dom";
 
-import { HeaderContainer } from './containers/header';
 import { BodyContainer } from './containers/body';
+import { ArticlesContainer } from "./containers/articles";
+import { ArticleContainer } from "./containers/article";
+import { AddArticle } from "./components/addArticle";
+import { ProfileContainer } from "./containers/profile";
+import { DateContainer } from "./containers/date";
+import { NotFound } from "./components/404";
 
 import './App.css';
 
 export const App = () => {
 
-  const pages = {
-    articles: 'articles',
-    newArticle: 'new-article',
-    profile: 'profile'
-  };
-
   return (
       <div className="App">
-        <HeaderContainer pages={pages}/>
-        <BodyContainer pages={pages}/>}/>
+        <Routes>
+          <Route path="/" element={<BodyContainer/>}>
+            <Route index element={<ArticlesContainer/>}/>
+            <Route path="articles/:id" element={<ArticleContainer/>}/>
+            <Route path="articles/new" element={<AddArticle/>}/>
+            <Route path="profile" element={<ProfileContainer/>}/>
+            <Route path="date/:date" element={<DateContainer/>}/>
+            <Route path="*" element={<NotFound/>}/>
+          </Route>
+        </Routes>
       </div>
   );
 };

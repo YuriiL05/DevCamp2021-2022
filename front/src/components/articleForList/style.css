@@ -1,0 +1,9 @@
+.articleList:link, .articleList:visited{
+    text-decoration: none;
+    font: 25px Arial;
+    color: white;
+}
+
+.articleList:hover, .articleList:active{
+    color: black;
+}

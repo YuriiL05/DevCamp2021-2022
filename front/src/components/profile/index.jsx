@@ -1,7 +1,9 @@
-export const Profile = () => {
+export const Profile = ({ userName, avatar }) => {
   return (
-    <div>
-      Profile
+    <div className={"profile"}>
+      <p>UserName: {userName}</p>
+      <p>avatar:</p>
+      <img src={avatar} alt={"Not uploaded"}/>
     </div>
   );
 };

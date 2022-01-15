@@ -12,24 +12,43 @@ export const ArticleContainer = () => {
   }
 
   const { id } = useParams();
+  const articleInfo = {
+    title: "My Article title",
+    text: "Some info about",
+    accessLevel: 1,
+    authorId: 2,
+    creationDate: "2022-01-15 12:15",
+    comments: [
+      {
+        commentId: 1,
+        authorId: 3,
+        text: "Some comment"
+      },
+      {
+        commentId: 2,
+        authorId: 2,
+        text: "Some comment"
+      }
+    ]
+  };
 
   if (id.match(validation.digits)) {
     return (
-      <div className={"article"}>
-        <Article id={id} test={"Digits"}/>
-      </div>
+      <>
+        <Article id={id} articleInfo={articleInfo} test={"Digits"}/>
+      </>
     );
   } else if (id.match(validation.capitalLetters)) {
     return (
-      <div className={"article"}>
-        <Article id={id} test={"Digits"}/>
-      </div>
+      <>
+        <Article id={id} articleInfo={articleInfo} test={"A-Z"}/>
+      </>
     );
   } else if (id.match(validation.file)) {
     return (
-      <div className={"article"}>
-        <Article id={id} test={"Digits"}/>
-      </div>
+      <>
+        <Article id={id} articleInfo={articleInfo} test={"File"}/>
+      </>
     );
   } else {
     return (
