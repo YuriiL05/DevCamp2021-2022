@@ -40,11 +40,7 @@ export const ArticleContainer = () => {
       </>
     );
   } else if (id.match(validation.capitalLetters)) {
-    return (
-      <>
-        <Article id={id} articleInfo={articleInfo} test={"A-Z"}/>
-      </>
-    );
+      throw new Error("Article cannot be opened");
   } else if (id.match(validation.file)) {
     return (
       <>
