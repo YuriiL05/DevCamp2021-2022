@@ -15,7 +15,7 @@ export const ArticlesContainer = () => {
 
   return (
     articles.map(article => (
-      <ArticleForList article={article}/>
+      <ArticleForList key={article.articleId} article={article}/>
     ))
   );
 };

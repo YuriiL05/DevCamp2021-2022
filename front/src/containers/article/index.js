@@ -11,13 +11,14 @@ export const ArticleContainer = () => {
     file: /^\w+\.doc$|pdf$|jpeg$/
   }
 
+  const date = new Date();
   const { id } = useParams();
   const articleInfo = {
     title: "My Article title",
     text: "Some info about",
     accessLevel: 1,
     authorId: 2,
-    creationDate: "2022-01-15 12:15",
+    creationDate: date,
     comments: [
       {
         commentId: 1,
@@ -35,7 +36,7 @@ export const ArticleContainer = () => {
   if (id.match(validation.digits)) {
     return (
       <>
-        <Article id={id} articleInfo={articleInfo} test={"Digits"}/>
+        <Article id={+id} articleInfo={articleInfo} test={"Digits"}/>
       </>
     );
   } else if (id.match(validation.capitalLetters)) {
