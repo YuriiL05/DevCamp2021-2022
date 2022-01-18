@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { HeaderContainer } from "../header";
 
 import './style.css';
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 export const BodyContainer = () => {
 
@@ -11,7 +12,9 @@ export const BodyContainer = () => {
     <>
       <HeaderContainer/>
       <div className={"content"}>
-        <Outlet/>
+        <ErrorBoundary>
+          <Outlet/>
+        </ErrorBoundary>
       </div>
     </>
   );
