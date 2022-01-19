@@ -1,21 +1,18 @@
-import { ArticleForList } from "../../components/articleForList";
+import { useQuery } from 'react-query';
+import { getArticles } from './api/crud';
+
+import { ArticleContainer } from "./articleForList";
+import { Loading } from "../../components/loading";
 
 export const ArticlesContainer = () => {
 
-  const articles = [
-    {
-      articleId: 1,
-      articleTitle: "My Article #1"
-    },
-    {
-      articleId: 2,
-      articleTitle: "My Article #2"
-    },
-  ]
+  const { isFetching, refetch, data } = useQuery('articles', () => getArticles());
+  const articles = data?.data;
 
   return (
-    articles.map(article => (
-      <ArticleForList key={article.articleId} article={article}/>
-    ))
+    <>
+      {isFetching && <Loading/>}
+      {articles?.map((article) => (<ArticleContainer key={article.ArticleID} article={article}/>))}
+    </>
   );
 };

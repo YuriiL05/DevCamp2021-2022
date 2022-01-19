@@ -3,26 +3,18 @@ import { Link } from "react-router-dom";
 
 import "./style.css"
 
-export const ArticleForList = ( { article } ) => {
+export const ArticleForList = ( { articleId, title, date } ) => {
   return (
     <>
-      <Link to={`/articles/${article.articleId}`} className={"articleList"}>
-        <li>{article.articleTitle}</li>
+      <Link to={`/articles/${articleId}`} className={"articleList"}>
+        <li>Title: {title} {date}</li>
       </Link>
     </>
   );
 };
 
 ArticleForList.propTypes = {
-  article: PropTypes.shape({
-    articleId: PropTypes.number.isRequired,
-    articleTitle: PropTypes.string.isRequired
-  })
+  articleId: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
 };
-
-ArticleForList.defaultProps = {
-  article: {
-    articleId: null,
-    articleTitle: "N/A"
-  }
-}

@@ -13,6 +13,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.use('/users', userRouters);
 app.use('/articles', articleRouters);
 app.use('/comments', commentRouters);
