@@ -3,11 +3,8 @@
 
 import { ArticleForList } from "../../../components/articleForList";
 
-export const ArticleContainer = ({ article }) => {
+export const ArticleForListContainer = ({ article }) => {
   const { ArticleID, UserID, Title, Date } = article;
-
-  //const { isFetching, refetch, data } = useQuery('user', () => getArticles());
-  // const articles = data?.data;
 
   return (
     <>

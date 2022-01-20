@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { getArticles } from './api/crud';
 
-import { ArticleContainer } from "./articleForList";
+import { ArticleForListContainer } from "./articleForList";
 import { Loading } from "../../components/loading";
 
 export const ArticlesContainer = () => {
@@ -12,7 +12,7 @@ export const ArticlesContainer = () => {
   return (
     <>
       {isFetching && <Loading/>}
-      {articles?.map((article) => (<ArticleContainer key={article.ArticleID} article={article}/>))}
+      {articles?.map((article) => (<ArticleForListContainer key={article.ArticleID} article={article}/>))}
     </>
   );
 };

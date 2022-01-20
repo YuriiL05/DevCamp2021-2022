@@ -11,10 +11,12 @@ export const BodyContainer = () => {
    return (
     <>
       <HeaderContainer/>
-      <div className={"content"}>
-        <ErrorBoundary>
-          <Outlet/>
-        </ErrorBoundary>
+      <div className={"bodyContent"}>
+        <div className={"content"}>
+          <ErrorBoundary>
+            <Outlet/>
+          </ErrorBoundary>
+        </div>
       </div>
     </>
   );

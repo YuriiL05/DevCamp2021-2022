@@ -10,6 +10,7 @@ import { DateContainer } from "./containers/date";
 import { NotFound } from "./components/404";
 
 import './App.css';
+import { UserContainer } from "./containers/user";
 
 export const App = () => {
 
@@ -21,7 +22,7 @@ export const App = () => {
             <Route path="articles/:id" element={<ArticleContainer/>}/>
             <Route path="articles/new" element={<AddArticle/>}/>
             <Route path="users" element={<UsersContainer/>}/>
-            <Route path="users/:id" element={<UsersContainer/>}/>
+            <Route path="users/:id" element={<UserContainer/>}/>
             <Route path="profile" element={<ProfileContainer/>}/>
             <Route path="date/:date" element={<DateContainer/>}/>
             <Route path="*" element={<NotFound/>}/>

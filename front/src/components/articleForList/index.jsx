@@ -5,11 +5,15 @@ import "./style.css"
 
 export const ArticleForList = ( { articleId, title, date } ) => {
   return (
-    <>
-      <Link to={`/articles/${articleId}`} className={"articleList"}>
-        <li>Title: {title} {date}</li>
+    <div className={"articleList"}>
+      <Link to={`/articles/${articleId}`} className={"articleListLink"}>
+        <div>
+          <p>#{articleId} <br/>
+            Title: {title} <br/>
+            Date {date.split('T')[0]}</p>
+        </div>
       </Link>
-    </>
+    </div>
   );
 };
 
