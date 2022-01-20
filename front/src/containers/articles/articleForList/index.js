@@ -1,6 +1,3 @@
-//import { useQuery } from 'react-query';
-//import { getArticles } from './api/crud';
-
 import { ArticleForList } from "../../../components/articleForList";
 
 export const ArticleForListContainer = ({ article }) => {
