@@ -8,9 +8,9 @@ import { UsersContainer } from "./containers/users";
 import { ProfileContainer } from "./containers/profile";
 import { DateContainer } from "./containers/date";
 import { NotFound } from "./components/404";
+import { UserContainer } from "./containers/users/user";
 
 import './App.css';
-import { UserContainer } from "./containers/user";
 
 export const App = () => {
 

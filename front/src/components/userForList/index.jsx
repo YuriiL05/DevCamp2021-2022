@@ -18,5 +18,9 @@ export const UserForList = ( { userId, fullName, avatar } ) => {
 UserForList.propTypes = {
   userId: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired
+  avatar: PropTypes.string
 };
+
+UserForList.defaultProps = {
+  avatar: null
+}

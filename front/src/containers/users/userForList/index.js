@@ -1,32 +1,18 @@
 import { UserForList } from "../../../components/userForList";
-import UserValidation from "../../../propsValidation/UserValidation";
-import { User } from "../../../components/user";
-import PropTypes from "prop-types";
+import UserForListValidation from "../../../propsValidation/UserForListValidation";
 
-export const UserForListContainer = ({ user }) => {
-  const { UserID, FirstName, LastName, Avatar } = user;
-  const FullName = `${FirstName} ${LastName}`;
+export const UserForListContainer = ({ userId, firstName, lastName, avatar }) => {
+  const fullName = `${firstName} ${lastName}`;
 
   return (
     <>
-      <UserForList userId={UserID} fullName={FullName} avatar={Avatar}/>
+      <UserForList userId={userId} fullName={fullName} avatar={avatar}/>
     </>
   );
 };
 
-User.propTypes = {
-  user: PropTypes.shape({
-    UserValidation
-  })
-};
+UserForListContainer.propTypes = UserForListValidation;
 
-User.defaultProps = {
-  user: {
-    firstName: "N/A",
-    lastName: "N/A",
-    email: "N/A",
-    avatar: null,
-    phone: "N/A",
-    university: "N/A"
-  }
+UserForListContainer.defaultProps = {
+  avatar: null
 }

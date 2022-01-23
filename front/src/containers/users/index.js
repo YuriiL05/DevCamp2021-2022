@@ -12,7 +12,12 @@ export const UsersContainer = () => {
   return (
     <>
       {isFetching && <Loading/>}
-      {users?.map((user) => (<UserForListContainer key={user.UserID} user={user}/>))}
+      {users?.map((user) => (<UserForListContainer key={user.UserID}
+                                                   userId={user.UserID}
+                                                   firstName={user.FirstName}
+                                                   lastName={user.LastName}
+                                                   avatar={user.Avatar}/>))
+      }
     </>
   );
 };
