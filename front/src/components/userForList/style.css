@@ -1,4 +1,4 @@
-.articleListLink:link, .articleListLink:visited{
+.userListLink:link, .userListLink:visited{
     text-decoration: none;
     font: 25px Arial;
     color: white;
@@ -8,15 +8,20 @@
     margin: 5px;
 }
 
-.articleListLink:hover, .articleListLink:active{
+.userListLink:hover, .userListLink:active{
     color: black;
 }
 
-.articleList {
+.userList {
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 10px;
     box-shadow: 0px 0px 5px #000000;
     border-radius: 4px;
+}
+
+.fullName {
+    margin-left: 20px;
+    place-self: center;
 }

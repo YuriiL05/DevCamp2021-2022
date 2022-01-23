@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import ProfileValidation from "../../propsValidation/ProfileValidation";
 
 export const Profile = ({ userName, avatar }) => {
   return (
@@ -9,17 +9,4 @@ export const Profile = ({ userName, avatar }) => {
   );
 };
 
-const isFilePath = (props, propName, componentName) => {
-  const reg = /\/files\/\d+.jpg/;
-
-  if(!reg.test(props[propName])) {
-    return new Error(
-      `Invalid prop ${propName} passed to ${componentName}. Expected a valid file path.`
-    );
-  }
-};
-
-Profile.propTypes = {
-  userName: PropTypes.string.isRequired,
-  avatar: isFilePath
-};
+Profile.propTypes = ProfileValidation;
