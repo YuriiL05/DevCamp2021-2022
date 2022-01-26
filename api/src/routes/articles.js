@@ -2,16 +2,32 @@ const router = require('express').Router();
 const db = require('../services/db');
 
 router.get('/', async (req, res) => {
-  const { skipArticles } = req.query;
+  const { limitArticles, skipArticles } = req.query;
 
   try {
-    const articles = await db
-      .select()
-      .from('Articles')
-      .orderBy('ArticleID')
-      .limit(10)
-      .offset(skipArticles)
-      .timeout(10000);
+    const articles = await db('Articles')
+      .join('Users', 'Articles.UserID', '=', 'Users.UserID')
+      .join(
+        'Universities',
+        'Users.UniversityID',
+        '=',
+        'Universities.UniversityID'
+      )
+      .select(
+        'ArticleID',
+        'AccessLevelID',
+        'Avatar',
+        'Body',
+        'Date',
+        'FirstName',
+        'LastName',
+        'Name as UniversityName',
+        'Title'
+      )
+      .orderBy('ArticleID', 'desc')
+      .limit(limitArticles || 10)
+      .offset(skipArticles || 0)
+      .timeout(5000);
 
     res.status(200).send(articles);
   } catch (e) {
@@ -96,8 +112,7 @@ router.post('/', async (req, res) => {
 router.post('/:id/likes', async (req, res) => {
   const articleId = req.params.id;
   const userId = req.body.UserID;
-  console.log(articleId);
-  console.log(userId);
+
   try {
     await db('Likes').insert({
       UserID: userId,

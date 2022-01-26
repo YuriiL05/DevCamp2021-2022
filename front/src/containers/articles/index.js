@@ -1,12 +1,17 @@
 import { useQuery } from 'react-query';
+import queryString from "query-string";
+
 import { getArticles } from './api/crud';
 
 import { ArticleForListContainer } from "./articleForList";
 import { Loading } from "../../components/loading";
+import { useLocation } from "react-router-dom";
 
 export const ArticlesContainer = () => {
 
-  const { isFetching, refetch, data } = useQuery('articles', () => getArticles());
+  const params = queryString.parse(useLocation().search);
+
+  const { isFetching, refetch, data } = useQuery('articles', () => getArticles(params));
   const articles = data?.data;
 
   return (
