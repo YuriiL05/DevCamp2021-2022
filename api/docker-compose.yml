@@ -28,4 +28,4 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes:
       - ./:/api
-    command: npm run start
+    command: npm run dev

@@ -1,27 +1,29 @@
 const multer = require('multer');
-const mkdirp = require('mkdirp');
+const fsExtra = require('fs-extra');
 
 const storage = multer.diskStorage({
-  destination: (req, file, next) => {
+  destination: (req, file, cb) => {
     const uploadPath = `uploads/${req.params.id}`;
-    mkdirp.sync(uploadPath);
 
-    next(null, uploadPath);
+    fsExtra.ensureDirSync(uploadPath);
+    fsExtra.emptyDirSync(uploadPath);
+
+    cb(null, uploadPath);
   },
-  filename: (req, file, next) => {
+  filename: (req, file, cb) => {
     const fileFormat = file.mimetype.split('/').pop();
 
-    next(null, `avatar.${fileFormat}`);
+    cb(null, `avatar.${fileFormat}`);
   },
 });
 
 const types = ['image/png', 'image/jpg', 'image/jpeg'];
 
-const fileFilter = (req, file, next) => {
+const fileFilter = (req, file, cb) => {
   if (types.includes(file.mimetype)) {
-    next(null, true);
+    cb(null, true);
   } else {
-    next(null, false);
+    cb('Incorrect format of file', false);
   }
 };
 
