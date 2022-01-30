@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../services/db');
+const path = require('path');
 
 router.get('/', async (req, res) => {
   try {
@@ -19,6 +20,28 @@ router.get('/:id', async (req, res) => {
       const user = await db('Users').where({ UserID: id });
       if (user.length > 0) {
         res.status(200).send(user);
+      } else {
+        res.status(404).send({ error: `User with Id: ${id} is not found` });
+      }
+    } catch (e) {
+      res.status(500).send({ error: 'User cannot be loaded', e });
+    }
+  } else {
+    res.status(400).send({ error: 'User Id is not correct' });
+  }
+});
+
+//Get Avatar
+router.get('/:id/avatar', async (req, res) => {
+  const id = req.params.id;
+  const uploadsPath = __dirname.split('/src').shift();
+
+  if (Number.isInteger(+id)) {
+    try {
+      const user = await db('Users').where({ UserID: id });
+
+      if (user.length > 0) {
+        res.sendFile(path.join(uploadsPath, user[0].Avatar));
       } else {
         res.status(404).send({ error: `User with Id: ${id} is not found` });
       }

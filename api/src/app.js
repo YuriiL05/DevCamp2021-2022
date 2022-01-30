@@ -5,6 +5,7 @@ const config = require('./services/config');
 const userRouters = require('./routes/users');
 const articleRouters = require('./routes/articles');
 const commentRouters = require('./routes/comments');
+const uploadsRouters = require('./routes/uploads');
 
 const port = config.appPort;
 
@@ -21,6 +22,7 @@ app.use(function (req, res, next) {
 app.use('/users', userRouters);
 app.use('/articles', articleRouters);
 app.use('/comments', commentRouters);
+app.use('/uploads', uploadsRouters);
 
 app.listen(port, () => {
   console.log(`Started at port ${port}`);
