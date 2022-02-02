@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { BodyContainer } from './containers/body';
 import { ArticlesContainer } from "./containers/articles";
-import { ArticleContainer } from "./containers/article";
-import { AddArticle } from "./components/addArticle";
+import { ArticleContainer } from "./containers/articles/article";
+import { AddArticle } from "./components/addOrEditArticle";
 import { UsersContainer } from "./containers/users";
 import { ProfileContainer } from "./containers/profile";
 import { DateContainer } from "./containers/date";
@@ -20,7 +20,6 @@ export const App = () => {
           <Route path="/" element={<BodyContainer/>}>
             <Route index element={<ArticlesContainer/>}/>
             <Route path="articles/:id" element={<ArticleContainer/>}/>
-            <Route path="articles/new" element={<AddArticle/>}/>
             <Route path="users" element={<UsersContainer/>}/>
             <Route path="users/:id" element={<UserContainer/>}/>
             <Route path="profile" element={<ProfileContainer/>}/>

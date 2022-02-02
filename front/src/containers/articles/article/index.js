@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
 
-import { Article } from '../../components/article';
-import { NotFound } from "../../components/404";
+import { Article } from '../../../components/article';
+import { NotFound } from "../../../components/404";
 
 export const ArticleContainer = () => {
   const validation = {
