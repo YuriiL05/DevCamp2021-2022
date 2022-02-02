@@ -29,10 +29,10 @@ export const Profile = ({ user, universities, updateProfile }) => {
     Phone: yup
       .string()
       .matches(/^\+380\d{9}$/, 'Incorrect Phone number format')
-      .required('Required'),
+      .required('Required (+380xxxxxxx)'),
     Avatar: yup
       .string()
-      .required('Required (+380xxxxxxx)'),
+      .required('Required'),
     UniversityID: yup
       .number()
       .required('Required')
