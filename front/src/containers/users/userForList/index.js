@@ -3,15 +3,11 @@ import UserForListValidation from "../../../propsValidation/UserForListValidatio
 import { useQuery } from "react-query";
 import { getAvatar } from "../api/crud";
 
-export const UserForListContainer = ({ userId, firstName, lastName }) => {
-  const fullName = `${firstName} ${lastName}`;
-
-  const { isFetching, refetch, data, isError } = useQuery(`avatar${userId}`, () => getAvatar(userId));
-  const avatar = data?.data
+export const UserForListContainer = ({ userId, firstName, lastName, avatar }) => {
 
   return (
     <>
-      <UserForList userId={userId} fullName={fullName} avatar={avatar}/>
+      <UserForList userId={userId} firstName={firstName} lastName={lastName} avatar={avatar}/>
     </>
   );
 };

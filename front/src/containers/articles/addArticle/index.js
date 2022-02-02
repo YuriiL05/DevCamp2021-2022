@@ -1,10 +1,12 @@
-import { AddArticle } from "../../../components/addOrEditArticle";
+import { AddOrEditArticle } from "../../../components/addOrEditArticle";
 import { useMutation } from "react-query";
 import React from "react";
 import { postAddArticle } from "../api/crud";
 import { Loading } from "../../../components/loading";
+import PropTypes from "prop-types";
 
 export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd }) => {
+  //User Id should be set after Login
   const UserID = 1;
   const date = new Date();
 
@@ -23,7 +25,12 @@ export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd }) => {
   return (
     <>
       {isLoading && <Loading/>}
-      <AddArticle open={openArtAdd} handleClose={handleCloseArt} submitArticle={addArticle} article={undefined}/>
+      <AddOrEditArticle open={openArtAdd} handleClose={handleCloseArt} submitArticle={addArticle} article={undefined}/>
     </>
   );
 };
+
+AddArticleContainer.propTypes = {
+  openArtAdd: PropTypes.bool.isRequired,
+  setOpenArtAdd: PropTypes.func.isRequired
+}

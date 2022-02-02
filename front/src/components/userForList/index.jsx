@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import "./style.css"
 import { UserIcon } from "../userIcon";
 
-export const UserForList = ( { userId, fullName, avatar } ) => {
+export const UserForList = ( { userId, firstName, lastName, avatar } ) => {
+  const fullName = `${firstName} ${lastName}`;
+
   return (
     <div className={"userList"}>
       <Link to={`/users/${userId}`} className={"userListLink"}>
-        <UserIcon avatar={avatar}/>
+        <UserIcon avatar={avatar} fullName={fullName}/>
         <div className={"fullName"}>{fullName}</div>
       </Link>
     </div>
@@ -17,7 +19,8 @@ export const UserForList = ( { userId, fullName, avatar } ) => {
 
 UserForList.propTypes = {
   userId: PropTypes.number.isRequired,
-  fullName: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
   avatar: PropTypes.string
 };
 

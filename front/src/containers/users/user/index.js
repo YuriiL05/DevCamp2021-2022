@@ -11,18 +11,13 @@ export const UserContainer = () => {
   const { id } = useParams();
 
   const { isFetching, refetch, data, isError } = useQuery(`user${id}`, () => getUser(id));
-  const user = data?.data[0];
+  const user = data?.data;
 
   return (
     <>
       {isFetching && <Loading/>}
       {isError && <NotFound/>}
-      {user && <User firstName={user.FirstName}
-                     lastName={user.LastName}
-                     avatar={user.Avatar}
-                     email={user.Email}
-                     phone={user.Phone}
-                     university={user.University}/>}
+      {user && <User user={user}/>}
     </>
   );
 };

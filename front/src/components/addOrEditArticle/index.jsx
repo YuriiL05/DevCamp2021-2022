@@ -15,8 +15,9 @@ import * as yup from 'yup';
 import TextFieldForm from "../formsUI/textField";
 import './style.css';
 import ListFieldForm from "../formsUI/listField";
+import AddOrEditArticleValidation from "../../propsValidation/AddOrEditArticleValidation";
 
-export const AddArticle = ({ open, handleClose, submitArticle, article }) => {
+export const AddOrEditArticle = ({ open, handleClose, submitArticle, article }) => {
 
   const validationSchema = yup.object({
     Title: yup
@@ -87,3 +88,5 @@ export const AddArticle = ({ open, handleClose, submitArticle, article }) => {
     </div>
   );
 };
+
+AddOrEditArticle.propTypes = AddOrEditArticleValidation;

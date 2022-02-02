@@ -6,16 +6,13 @@ import { HeaderContainer } from "../header";
 import './style.css';
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { AddArticleContainer } from "../articles/addArticle";
-import { EditArticleContainer } from "../articles/editArticle";
 
 export const BodyContainer = () => {
   const [openArtAdd, setOpenArtAdd] = React.useState(false);
-  const [openArtEdit, setOpenArtEdit] = React.useState(false);
-
 
    return (
     <>
-      <HeaderContainer setOpenArtAdd={setOpenArtAdd} setOpenArtEdit={setOpenArtEdit}/>
+      <HeaderContainer setOpenArtAdd={setOpenArtAdd}/>
       <div className={"bodyContent"}>
         <div className={"content"}>
           <ErrorBoundary>
