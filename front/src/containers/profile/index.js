@@ -6,7 +6,7 @@ import { Loading } from "../../components/loading";
 
 export const ProfileContainer = () => {
   //To get User Id during auth
-  const userId = 1;
+  const userId = 2;
 
   const [user, universities] = useQueries([{
     queryKey: `user${userId}`, queryFn: () => getUser(userId)

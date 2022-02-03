@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Formik, Form } from 'formik';
+import { ListField } from 'formik-mui';
 import {
   Box,
   Button,
@@ -35,8 +36,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article }) 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        {!article && <DialogTitle>Add Article</DialogTitle>}
-        {article && <DialogTitle>Edit Article</DialogTitle>}
+        <DialogTitle>{!article && 'Add Article'}{article && 'Edit Article'}</DialogTitle>
         <DialogContent>
           <Formik
             initialValues={article || { Title: '', Body: '', AccessLevelID: 1 }}
@@ -63,8 +63,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article }) 
                       </Grid>
                     </Grid>
                     <DialogActions>
-                      {!article && <Button type="submit" variant="contained" disabled={isSubmitting}>Add</Button>}
-                      {article && <Button type="submit" variant="contained" disabled={isSubmitting}>Save</Button>}
+                      <Button type="submit" variant="contained" disabled={isSubmitting}>{!article && 'Add'}{article && 'Save'}</Button>
                     </DialogActions>
                     <IconButton
                       aria-label="close"

@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "formik": "^2.2.9",
+    "formik-mui": "^4.0.0-alpha.3",
     "node": "^17.2.0",
     "path-to-regexp": "^6.2.0",
     "prop-types": "^15.8.1",

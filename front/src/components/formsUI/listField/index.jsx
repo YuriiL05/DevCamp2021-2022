@@ -3,6 +3,7 @@ import { useField, useFormikContext } from "formik";
 import { MenuItem, TextField } from "@mui/material";
 
 const ListFieldForm = ({ name, options, ...otherProps }) => {
+  //лучше взять филд из formik-mui
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
 
