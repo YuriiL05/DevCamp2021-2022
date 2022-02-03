@@ -5,15 +5,18 @@ import { HeaderContainer } from "../header";
 
 import './style.css';
 import ErrorBoundary from "../../components/ErrorBoundary";
+import { AddArticleContainer } from "../articles/addArticle";
 
 export const BodyContainer = () => {
+  const [openArtAdd, setOpenArtAdd] = React.useState(false);
 
    return (
     <>
-      <HeaderContainer/>
+      <HeaderContainer setOpenArtAdd={setOpenArtAdd}/>
       <div className={"bodyContent"}>
         <div className={"content"}>
           <ErrorBoundary>
+            <AddArticleContainer openArtAdd={openArtAdd} setOpenArtAdd={setOpenArtAdd}/>
             <Outlet/>
           </ErrorBoundary>
         </div>

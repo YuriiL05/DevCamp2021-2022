@@ -1,23 +1,28 @@
-import { useQuery } from 'react-query';
-import queryString from "query-string";
-
-import { getArticles } from './api/crud';
-
-import { ArticleForListContainer } from "./articleForList";
-import { Loading } from "../../components/loading";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import {  Outlet } from "react-router-dom";
+import { EditArticleContainer } from "./editArticle";
 
 export const ArticlesContainer = () => {
+  const [openArtEdit, setOpenArtEdit] = useState(false);
+  const [articleId, setArticleId] = useState(null);
 
-  const params = queryString.parse(useLocation().search);
+  const handleArticleEdit = (ArticleID) => () => {
+    setArticleId(ArticleID);
+    handleOpenEditArt();
+  }
 
-  const { isFetching, refetch, data } = useQuery('articles', () => getArticles(params));
-  const articles = data?.data;
+  const handleOpenEditArt = () => {
+    setOpenArtEdit(true);
+  };
+
+  const handleCloseEditArt = () => {
+    setOpenArtEdit(false);
+  };
 
   return (
     <>
-      {isFetching && <Loading/>}
-      {articles?.map((article) => (<ArticleForListContainer key={article.ArticleID} article={article}/>))}
+      {openArtEdit && <EditArticleContainer openArtEdit={openArtEdit} handleCloseEditArt={handleCloseEditArt} articleId={articleId}/>}
+      <Outlet context={handleArticleEdit}/>
     </>
   );
 };

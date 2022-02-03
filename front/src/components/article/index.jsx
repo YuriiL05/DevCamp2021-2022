@@ -1,17 +1,28 @@
+import { Button } from "@mui/material";
+import React from "react";
+import PropTypes from "prop-types";
+
 const ArticleValidation = require("../../propsValidation/ArticleValidation")
 
-export const Article = ( { id, articleInfo, test} ) => {
+export const Article = ( { article, handleArticleEdit } ) => {
+  const { ArticleID, Title, Body, Date} = article;
+
   return (
     <div className={"article"}>
-      <p>Article# {id}</p>
-      <p>Title: {articleInfo.title}</p>
+      <p>Article# {ArticleID}</p>
+      <Button variant="outlined" onClick={handleArticleEdit(ArticleID)}>
+        Edit Article
+      </Button>
+      <p>Title: {Title}</p>
       <p>Text:</p>
-      <p>{articleInfo.text}</p>
-      <p>{articleInfo.creationDate.toISOString().split('T')[0]}</p>
-      <p>Comments: {articleInfo.comments[0].text}</p>
-      <p>TestId: {test}</p>
+      <p>{Body}</p>
+      <p>{Date.split('T')[0]}</p>
+      <p>Comments: Test comment</p>
     </div>
   );
 };
 
-Article.propTypes = ArticleValidation;
+Article.propTypes = {
+  article: PropTypes.shape(ArticleValidation).isRequired,
+  handleArticleEdit: PropTypes.func.isRequired
+};
