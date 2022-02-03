@@ -1,14 +1,16 @@
 const db = require('../services/db');
 const router = require('express').Router();
-const multer = require('../middlewares/multer');
+const multer = require('../middlewares/multerToS3');
 
 //Upload Avatar
 router.post('/:id', multer.single('avatar'), async (req, res) => {
   const newAvatar = req.file;
   const { id } = req.params;
 
+  console.log(newAvatar);
+
   if (newAvatar) {
-    const avatarPath = newAvatar.path;
+    const avatarPath = newAvatar.location;
 
     try {
       const isUpdated = await db('Users')

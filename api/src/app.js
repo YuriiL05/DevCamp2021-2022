@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const config = require('./services/config');
 const userRouters = require('./routes/users');
@@ -14,10 +15,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
 
 app.use('/users', userRouters);
 app.use('/articles', articleRouters);
