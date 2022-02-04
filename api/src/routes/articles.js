@@ -40,8 +40,8 @@ router.get('/:id', async (req, res) => {
 
   if (Number.isInteger(+id)) {
     try {
-      const article = await db('Articles').where({ ArticleID: id });
-      if (article.length > 0) {
+      const article = await db('Articles').first().where({ ArticleID: id });
+      if (article) {
         res.status(200).send(article);
       } else {
         res.status(404).send({ error: `Article with Id: ${id} is not found` });

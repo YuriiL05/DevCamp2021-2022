@@ -17,8 +17,16 @@ router.get('/:id', async (req, res) => {
 
   if (Number.isInteger(+id)) {
     try {
-      const user = await db('Users').where({ UserID: id });
-      if (user.length > 0) {
+      const user = await db('Users')
+        .join(
+          'Universities',
+          'Users.UniversityID',
+          '=',
+          'Universities.UniversityID'
+        )
+        .first()
+        .where({ UserID: id });
+      if (user) {
         res.status(200).send(user);
       } else {
         res.status(404).send({ error: `User with Id: ${id} is not found` });
@@ -31,17 +39,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//Get Avatar
+//Get Avatar from file system
 router.get('/:id/avatar', async (req, res) => {
   const id = req.params.id;
   const uploadsPath = __dirname.split('/src').shift();
 
   if (Number.isInteger(+id)) {
     try {
-      const user = await db('Users').where({ UserID: id });
+      const user = await db('Users').first().where({ UserID: id });
 
-      if (user.length > 0) {
-        res.sendFile(path.join(uploadsPath, user[0].Avatar));
+      if (user) {
+        res.sendFile(path.join(uploadsPath, user.Avatar));
       } else {
         res.status(404).send({ error: `User with Id: ${id} is not found` });
       }
@@ -75,9 +83,9 @@ router.put('/:id', async (req, res) => {
 
   if (Number.isInteger(+id)) {
     try {
-      const user = await db('Users').where({ UserID: id });
-      if (user.length > 0) {
-        const updatedInfoUser = { ...user[0], ...userUpdates };
+      const user = await db('Users').first().where({ UserID: id });
+      if (user) {
+        const updatedInfoUser = { ...user, ...userUpdates };
 
         await db('Users').where({ UserID: id }).update(updatedInfoUser);
         res.status(200).send(updatedInfoUser);
