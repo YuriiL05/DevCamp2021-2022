@@ -6,6 +6,7 @@ const config = require('./services/config');
 const userRouters = require('./routes/users');
 const articleRouters = require('./routes/articles');
 const commentRouters = require('./routes/comments');
+const universitiesRouter = require('./routes/universities');
 const uploadsRouters = require('./routes/uploads');
 
 const port = config.appPort;
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/users', userRouters);
 app.use('/articles', articleRouters);
 app.use('/comments', commentRouters);
+app.use('/universities', universitiesRouter);
 app.use('/uploads', uploadsRouters);
 
 app.listen(port, () => {

@@ -26,7 +26,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article }) 
       .required('Title is required'),
     Body: yup
       .string()
-      .min(5, 'Minimum 20 characters')
+      .min(5, 'Minimum 5 characters')
       .required('Provide some text'),
     AccessLevelID: yup
       .number()

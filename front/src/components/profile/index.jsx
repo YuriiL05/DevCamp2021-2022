@@ -1,7 +1,7 @@
 import ProfileValidation from "../../propsValidation/ProfileValidation";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { UserIcon } from "../userIcon";
-import { Alert, Button, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import TextFieldForm from "../formsUI/textField";
 import ListFieldForm from "../formsUI/listField";
 import * as React from "react";
@@ -12,6 +12,8 @@ import "./style.css";
 export const Profile = ({ user, universities, updateProfile }) => {
   const { FirstName, LastName, Email, Phone, Avatar, UniversityID } = user;
   const fullName = `${FirstName} ${LastName}`;
+  //List of UniversityID and UniversityName
+  const universityList = Object.assign( {}, ...universities.map(item => ({ [item.UnId]: item.UniversityName})) );
 
   const validationSchema = yup.object({
     FirstName: yup
@@ -28,7 +30,7 @@ export const Profile = ({ user, universities, updateProfile }) => {
       .required('Required'),
     Phone: yup
       .string()
-      .matches(/^\+380\d{9}$/, 'Incorrect Phone number format')
+      .matches(/^\+380\d{9}$/, 'Incorrect Phone number format (+380xxxxxxx)')
       .required('Required (+380xxxxxxx)'),
     Avatar: yup
       .string()
@@ -42,7 +44,7 @@ export const Profile = ({ user, universities, updateProfile }) => {
     <div className={"profile"}>
       <h4>My Profile</h4>
       <Formik
-        initialValues={{ FirstName, LastName, Email, Phone, Avatar, UniversityID} }
+        initialValues={{ FirstName, LastName, Email, Phone, Avatar, UniversityID }}
         onSubmit={updateProfile}
         validationSchema={validationSchema}
       >
@@ -65,11 +67,7 @@ export const Profile = ({ user, universities, updateProfile }) => {
                     <TextFieldForm name="Phone" label="Phone" helperText="+380xxxxxxx"/>
                   </Grid>
                   <Grid item xs={4}>
-                    <ListFieldForm name="UniversityID" options={{
-                      1: "SumDU",
-                      2: "SumPU",
-                      3: "KPI"
-                    }} label="University"/>
+                    <ListFieldForm name="UniversityID" options={universityList} label="University"/>
                   </Grid>
                   <Grid item xs={12}>
                     <Button type="submit" variant="contained" disabled={isSubmitting}>Save</Button>
