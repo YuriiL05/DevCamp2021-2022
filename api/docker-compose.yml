@@ -10,7 +10,7 @@ services:
     volumes:
       - ./tmp/db_data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_PORT}
 
   adminer:
     image: adminer
@@ -28,4 +28,4 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes:
       - ./:/api
-    command: npm run dev
+    command: npm run prod

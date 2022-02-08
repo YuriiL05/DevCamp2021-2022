@@ -1,0 +1,31 @@
+const db = require('../services/db');
+const config = require('../services/config');
+const logToFile = require('../services/logToFile');
+
+const logger = async (req, res, next) => {
+  const loggedData = {
+    Method: req.method,
+    Path: req.path,
+    Date: new Date(),
+    Body: config.logsBody ? req.body : null,
+  };
+
+  if (config.logsToDB) {
+    await db(config.logsTable).insert(loggedData).catch(next);
+  }
+
+  logToFile.log(loggedData);
+
+  next();
+};
+
+const logError = (err, req, res, next) => {
+  logToFile.error(new Date().toISOString(), err);
+
+  next(err);
+};
+
+module.exports = {
+  logger,
+  logError,
+};

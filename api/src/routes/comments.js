@@ -2,30 +2,33 @@ const router = require('express').Router();
 const db = require('../services/db');
 
 //get comment by id for an article
-router.get('/:commentId', async (req, res) => {
+router.get('/:commentId', async (req, res, next) => {
   const { commentId } = req.params;
 
   if (Number.isInteger(+commentId)) {
     try {
-      const comment = await db('Comments').where({ CommentID: commentId });
+      const comment = await db('Comments')
+        .where({ CommentID: commentId })
+        .first();
 
-      if (comment.length > 0) {
+      if (comment) {
         res.status(200).send(comment);
       } else {
-        res
-          .status(404)
-          .send({ error: `Comment with Id: ${commentId} is absent` });
+        res.status(404);
+        next({ error: `Comment with Id: ${commentId} is absent` });
       }
     } catch (e) {
-      res.status(500).send({ error: 'Comment cannot be loaded', e });
+      res.status(500);
+      next({ error: 'Comment cannot be loaded', e });
     }
   } else {
-    res.status(400).send({ error: 'Comment Id is not correct' });
+    res.status(400);
+    next({ error: 'Comment Id is not correct' });
   }
 });
 
 //add a new comment to an article
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const newComment = req.body;
 
   if (Object.keys(newComment).length > 0) {
@@ -36,24 +39,28 @@ router.post('/', async (req, res) => {
 
       res.status(200).send(insertedComment[0]);
     } catch (e) {
-      res.status(500).send({ error: 'Comment cannot be added', e });
+      res.status(500);
+      next({ error: 'Comment cannot be added', e });
     }
   } else {
-    res.status(400).send({ error: 'Comment information is empty' });
+    res.status(400);
+    next({ error: 'Comment information is empty' });
   }
 });
 
 //update the comment
-router.put('/:commentId', async (req, res) => {
+router.put('/:commentId', async (req, res, next) => {
   const { commentId } = req.params;
   const commentUpdates = req.body;
 
   if (Number.isInteger(+commentId)) {
     try {
-      const comment = await db('Comments').where({ CommentID: commentId });
+      const comment = await db('Comments')
+        .where({ CommentID: commentId })
+        .first();
 
-      if (comment.length > 0) {
-        const updatedInfoComment = { ...comment[0], ...commentUpdates };
+      if (comment) {
+        const updatedInfoComment = { ...comment, ...commentUpdates };
 
         await db('Comments')
           .where({ CommentID: commentId })
@@ -61,20 +68,21 @@ router.put('/:commentId', async (req, res) => {
 
         res.status(200).send(updatedInfoComment);
       } else {
-        res
-          .status(404)
-          .send({ error: `Comment with Id: ${commentId} is not found` });
+        res.status(404);
+        next({ error: `Comment with Id: ${commentId} is not found` });
       }
     } catch (e) {
-      res.status(500).send({ error: 'Comment cannot be loaded', e });
+      res.status(500);
+      next({ error: 'Comment cannot be loaded', e });
     }
   } else {
-    res.status(400).send({ error: 'Comment Id is not correct' });
+    res.status(400);
+    next({ error: 'Comment Id is not correct' });
   }
 });
 
 //delete the comment
-router.delete('/:commentId', async (req, res) => {
+router.delete('/:commentId', async (req, res, next) => {
   const { commentId } = req.params;
 
   if (Number.isInteger(+commentId)) {
@@ -89,10 +97,12 @@ router.delete('/:commentId', async (req, res) => {
           : `Comment with Id: ${commentId} is absent`
       );
     } catch (e) {
-      res.status(500).send({ error: 'Comment cannot be deleted', e });
+      res.status(500);
+      next({ error: 'Comment cannot be deleted', e });
     }
   } else {
-    res.status(400).send({ error: 'Comment Id is not correct' });
+    res.status(400);
+    next({ error: 'Comment Id is not correct' });
   }
 });
 

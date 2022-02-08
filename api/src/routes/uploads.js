@@ -3,7 +3,7 @@ const router = require('express').Router();
 const multer = require('../middlewares/multerToS3');
 
 //Upload Avatar
-router.post('/:id', multer.single('avatar'), async (req, res) => {
+router.post('/:id', multer.single('avatar'), async (req, res, next) => {
   const newAvatar = req.file;
   const { id } = req.params;
 
@@ -23,13 +23,15 @@ router.post('/:id', multer.single('avatar'), async (req, res) => {
           : `File is uploaded to ${avatarPath} but user is not found in DB`
       );
     } catch (e) {
-      res.status(500).send({
+      res.status(500);
+      next({
         error: `File is uploaded to ${avatarPath} but avatar path cannot be updated in DB`,
         e,
       });
     }
   } else {
-    res.status(500).send('Error during avatar upload');
+    res.status(500);
+    next('Error during avatar upload');
   }
 });
 
