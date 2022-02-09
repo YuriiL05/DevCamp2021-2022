@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const db = require('../services/db');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   const { limitArticles, skipArticles } = req.query;
 
   try {
@@ -31,11 +31,12 @@ router.get('/', async (req, res) => {
 
     res.status(200).send(articles);
   } catch (e) {
-    res.status(500).send({ error: 'Articles cannot be loaded', e });
+    res.status(500);
+    next({ error: 'Articles cannot be loaded', e });
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
 
   if (Number.isInteger(+id)) {
@@ -44,18 +45,21 @@ router.get('/:id', async (req, res) => {
       if (article) {
         res.status(200).send(article);
       } else {
-        res.status(404).send({ error: `Article with Id: ${id} is not found` });
+        res.status(404);
+        next({ error: `Article with Id: ${id} is not found` });
       }
     } catch (e) {
-      res.status(500).send({ error: 'Article cannot be loaded', e });
+      res.status(500);
+      next({ error: 'Article cannot be loaded', e });
     }
   } else {
-    res.status(400).send({ error: 'Article Id is not correct' });
+    res.status(400);
+    next({ error: 'Article Id is not correct' });
   }
 });
 
 //get likes for the current article
-router.get('/:id/likes', async (req, res) => {
+router.get('/:id/likes', async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -63,12 +67,13 @@ router.get('/:id/likes', async (req, res) => {
 
     res.status(200).send(likes);
   } catch (e) {
-    res.status(500).send({ error: 'Likes cannot be loaded', e });
+    res.status(500);
+    next({ error: 'Likes cannot be loaded', e });
   }
 });
 
 //get all comments for an article
-router.get('/:id/comments', async (req, res) => {
+router.get('/:id/comments', async (req, res, next) => {
   const id = req.params.id;
 
   if (Number.isInteger(+id)) {
@@ -80,19 +85,20 @@ router.get('/:id/comments', async (req, res) => {
       if (comments.length > 0) {
         res.status(200).send(comments);
       } else {
-        res
-          .status(404)
-          .send({ error: `Comments for article Id: ${id} is absent` });
+        res.status(404);
+        next({ error: `Comments for article Id: ${id} is absent` });
       }
     } catch (e) {
-      res.status(500).send({ error: 'Comments cannot be loaded', e });
+      res.status(500);
+      next({ error: 'Comments cannot be loaded', e });
     }
   } else {
-    res.status(400).send({ error: 'Article Id is not correct' });
+    res.status(400);
+    next({ error: 'Article Id is not correct' });
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const newArticleData = req.body;
 
   if (Object.keys(newArticleData).length > 0) {
@@ -101,15 +107,17 @@ router.post('/', async (req, res) => {
 
       res.status(200).send('New article was added');
     } catch (e) {
-      res.status(500).send({ error: 'Article cannot be added', e });
+      res.status(500);
+      next({ error: 'Article cannot be added', e });
     }
   } else {
-    res.status(400).send({ error: 'Article information is empty' });
+    res.status(400);
+    next({ error: 'Article information is empty' });
   }
 });
 
 //add likes for the current article
-router.post('/:id/likes', async (req, res) => {
+router.post('/:id/likes', async (req, res, next) => {
   const articleId = req.params.id;
   const userId = req.body.UserID;
 
@@ -121,19 +129,20 @@ router.post('/:id/likes', async (req, res) => {
 
     res.status(200).send('New like was added');
   } catch (e) {
-    res.status(500).send({ error: 'Lake cannot be added', e });
+    res.status(500);
+    next({ error: 'Lake cannot be added', e });
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res, next) => {
   const id = req.params.id;
   const articleUpdates = req.body;
 
   if (Number.isInteger(+id)) {
     try {
-      const article = await db('Articles').where({ ArticleID: id });
-      if (article.length > 0) {
-        const updatedInfoArticle = { ...article[0], ...articleUpdates };
+      const article = await db('Articles').first().where({ ArticleID: id });
+      if (article) {
+        const updatedInfoArticle = { ...article, ...articleUpdates };
 
         await db('Articles')
           .where({ ArticleID: id })
@@ -141,17 +150,20 @@ router.put('/:id', async (req, res) => {
 
         res.status(200).send(updatedInfoArticle);
       } else {
-        res.status(404).send({ error: `Article with Id: ${id} is not found` });
+        res.status(404);
+        next({ error: `Article with Id: ${id} is not found` });
       }
     } catch (e) {
-      res.status(500).send({ error: 'Article cannot be loaded', e });
+      res.status(500);
+      next({ error: 'Article cannot be loaded', e });
     }
   } else {
-    res.status(400).send({ error: 'Article Id is not correct' });
+    res.status(400);
+    next({ error: 'Article Id is not correct' });
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   const id = req.params.id;
 
   if (Number.isInteger(+id)) {
@@ -164,15 +176,17 @@ router.delete('/:id', async (req, res) => {
           : `Article with Id: ${id} is absent`
       );
     } catch (e) {
-      res.status(500).send({ error: 'Article cannot be deleted', e });
+      res.status(500);
+      next({ error: 'Article cannot be deleted', e });
     }
   } else {
-    res.status(400).send({ error: 'Article Id is not correct' });
+    res.status(400);
+    next({ error: 'Article Id is not correct' });
   }
 });
 
 //remove likes for the current article
-router.delete('/:id/likes/:userId', async (req, res) => {
+router.delete('/:id/likes/:userId', async (req, res, next) => {
   const articleId = req.params.id;
   const userId = req.params.userId;
 
@@ -187,7 +201,8 @@ router.delete('/:id/likes/:userId', async (req, res) => {
         : `Like for user Id: ${userId} is absent`
     );
   } catch (e) {
-    res.status(500).send({ error: 'Like cannot be deleted', e });
+    res.status(500);
+    next({ error: 'Like cannot be deleted', e });
   }
 });
 

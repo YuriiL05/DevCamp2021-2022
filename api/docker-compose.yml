@@ -10,7 +10,7 @@ services:
     volumes:
       - ./tmp/db_data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_PORT}
 
   adminer:
     image: adminer

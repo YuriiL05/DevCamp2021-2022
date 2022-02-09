@@ -1,7 +1,7 @@
 const db = require('../services/db');
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const universities = await db('Universities')
       .select('UniversityID as UnId', 'Name as UniversityName')
@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
 
     res.status(200).send(universities);
   } catch (e) {
-    res.status(500).send({ error: 'Universities cannot be loaded', e });
+    res.status(500);
+    next({ error: 'Universities cannot be loaded', e });
   }
 });
 
