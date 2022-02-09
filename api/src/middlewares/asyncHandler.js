@@ -2,7 +2,7 @@ const asyncHandler =
   (fn) =>
   (req, res, next, ...args) => {
     Promise.resolve(fn(req, res, next, ...args))
-      .then(next)
+      .then(() => next())
       .catch(next);
   };
 

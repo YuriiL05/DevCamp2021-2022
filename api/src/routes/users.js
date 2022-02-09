@@ -2,21 +2,27 @@ const router = require('express').Router();
 const db = require('../services/db');
 const path = require('path');
 const asyncHandler = require('../middlewares/asyncHandler');
+const customError = require('../middlewares/customError');
 
 router.get(
   '/',
   asyncHandler(async (req, res) => {
     const users = await db.select().from('Users').timeout(5000);
 
+    if (users.length === 0) {
+      throw new customError('Users are absent', 404);
+    }
+
     res.status(200).send(users);
   })
 );
 
-router.get('/:id', async (req, res, next) => {
-  const id = req.params.id;
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const id = req.params.id;
 
-  if (Number.isInteger(+id)) {
-    try {
+    if (Number.isInteger(+id)) {
       const user = await db('Users')
         .join(
           'Universities',
@@ -29,18 +35,13 @@ router.get('/:id', async (req, res, next) => {
       if (user) {
         res.status(200).send(user);
       } else {
-        res.status(404);
-        next({ error: `User with Id: ${id} is not found` });
+        throw new customError(`User with Id: ${id} is not found`, 404);
       }
-    } catch (e) {
-      res.status(500);
-      next({ error: 'User cannot be loaded', e });
+    } else {
+      throw new customError('User Id is not correct', 400);
     }
-  } else {
-    res.status(400);
-    next({ error: 'User Id is not correct' });
-  }
-});
+  })
+);
 
 //Get Avatar from file system
 router.get('/:id/avatar', async (req, res, next) => {

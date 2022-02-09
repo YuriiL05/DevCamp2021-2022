@@ -13,14 +13,16 @@ const logger = async (req, res, next) => {
   if (config.logsToDB) {
     await db(config.logsTable).insert(loggedData).catch(next);
   }
-
+  logToFile.error('===========================');
   logToFile.log(loggedData);
 
   next();
 };
 
 const logError = (err, req, res, next) => {
-  logToFile.error(new Date().toISOString(), err);
+  logToFile.error('===========================');
+  logToFile.error(new Date().toISOString());
+  logToFile.error(err);
 
   next(err);
 };

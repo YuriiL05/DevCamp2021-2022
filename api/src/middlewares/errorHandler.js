@@ -1,13 +1,18 @@
+const customError = require('./customError');
 const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  if (process.env.NODE_ENV === 'development') {
-    res.status(res.statusCode === 200 ? 500 : res.statusCode).send(err);
+  console.log('==========================');
+  console.log(err);
+  if (err instanceof customError) {
+    if (process.env.NODE_ENV === 'development') {
+      res.status(err.status).send(err.stack);
+    } else {
+      res.status(err.status).send(err.message);
+    }
   } else {
-    res
-      .status(res.statusCode === 200 ? 500 : res.statusCode)
-      .send({ error: 'Something went wrong' });
+    res.status(500).send('Something went wrong');
   }
 };
 
