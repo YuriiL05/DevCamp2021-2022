@@ -42,7 +42,7 @@ export const Profile = ({ user, universities, updateProfile }) => {
 
   return (
     <div className={"profile"}>
-      <h4>My Profile</h4>
+      <p>My Profile</p>
       <Formik
         initialValues={{ FirstName, LastName, Email, Phone, Avatar, UniversityID }}
         onSubmit={updateProfile}

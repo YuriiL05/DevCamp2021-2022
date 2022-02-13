@@ -6,9 +6,15 @@ import { HeaderContainer } from "../header";
 import './style.css';
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { AddArticleContainer } from "../articles/addArticle";
+import { useQuery } from "react-query";
+import { getAccessLevels } from "../articles/api/crud";
+import { Loading } from "../../components/loading";
 
 export const BodyContainer = () => {
   const [openArtAdd, setOpenArtAdd] = React.useState(false);
+
+  const { isFetching, refetch, data, isFetched } = useQuery('accessLevels', () => getAccessLevels());
+  const accessLevels = data?.data;
 
    return (
     <>
@@ -16,8 +22,11 @@ export const BodyContainer = () => {
       <div className={"bodyContent"}>
         <div className={"content"}>
           <ErrorBoundary>
-            <AddArticleContainer openArtAdd={openArtAdd} setOpenArtAdd={setOpenArtAdd}/>
-            <Outlet/>
+            {isFetching && <Loading/>}
+            {isFetched && openArtAdd && <AddArticleContainer openArtAdd={openArtAdd}
+                                                             setOpenArtAdd={setOpenArtAdd}
+                                                             accessLevels={accessLevels}/>}
+            {isFetched && <Outlet context={accessLevels}/>}
           </ErrorBoundary>
         </div>
       </div>

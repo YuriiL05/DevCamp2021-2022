@@ -8,26 +8,30 @@ export const getArticle = async ( articleId ) => {
   return apiClient.get(`/articles/${articleId}`);
 }
 
+export const getAccessLevels = async () => {
+  return apiClient.get('/accessLevels');
+}
+
 export const postAddArticle = async (data) => {
-  const { UserID, Title, Body, AccessLevelID, date} = data;
+  const { UserID, Title, Body, AccessLevel, date} = data;
 
   return apiClient.post(`/articles`, {
     UserID,
     Title,
     Body,
-    AccessLevelID,
+    AccessLevelID: AccessLevel.value,
     Date: date
   });
 }
 
 export const putEditArticle = async (data) => {
-  const { ArticleID, Title, Body, AccessLevelID} = data;
+  const { ArticleID, Title, Body, AccessLevel} = data;
 
   return apiClient.put(`/articles/${ArticleID}`, {
     ArticleID,
     Title,
     Body,
-    AccessLevelID
+    AccessLevelID: AccessLevel.value,
   });
 };
 

@@ -8,6 +8,10 @@ export const getUniversities = async () => {
   return apiClient.get(`/universities`);
 }
 
+export const getFriends = async (userId) => {
+  return apiClient.get(`/friends/${userId}`);
+}
+
 export const putUpdateProfile = async (data) => {
   const { userId, FirstName, LastName, Phone, UniversityID} = data;
 
