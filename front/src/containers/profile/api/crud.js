@@ -1,4 +1,5 @@
 import { apiClient } from '../../../config/axios';
+import { serialize } from "object-to-formdata";
 
 export const postAvatar = async (id, data) => {
   return apiClient.post(`/uploads/${id}`, data, {headers: {'enctype': 'multipart/form-data'}});
@@ -13,12 +14,10 @@ export const getFriends = async (userId) => {
 }
 
 export const putUpdateProfile = async (data) => {
-  const { userId, FirstName, LastName, Phone, UniversityID} = data;
+  console.log(data);
+  const formData = serialize(data, { indices: true });
 
-  return apiClient.put(`/users/${userId}`, {
-    FirstName,
-    LastName,
-    Phone,
-    UniversityID
+  return apiClient.put(`/users/${data.UserID}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
   });
 };

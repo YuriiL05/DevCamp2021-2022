@@ -17,9 +17,19 @@ export const MyDataContainer = ({ userId, accessLevels }) => {
   const { mutate } = useMutation(`user${userId}`, (data) => putUpdateProfile(data));
 
   const updateProfile = (values, { setSubmitting }) => {
-    mutate({ userId, ...values });
+    console.log(values);
+    const profileData = {
+      UserID: userId,
+      FirstName: values.FirstName,
+      LastName: values.LastName,
+      Phone: values.Phone,
+      UniversityID: values.UniversityID,
+      avatar: values?.avatar
+    }
+
+    mutate(profileData);
     setSubmitting(false);
-    alert('Profile Updated Successfully!');
+    alert('Update started!');
   }
 
   return (

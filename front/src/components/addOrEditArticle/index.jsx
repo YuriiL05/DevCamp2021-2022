@@ -101,7 +101,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
                         </label>
                       </Grid>
                       <Grid item xs={4} >
-                        <img src={file} alt="NA"/>
+                        {file && <img src={file} alt="NA"/>}
                       </Grid>
                       <Grid item xs={4} sx={{marginLeft: "auto"}}>
                         <Field component={FormikAutocomplete}
