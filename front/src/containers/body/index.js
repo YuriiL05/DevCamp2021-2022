@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { HeaderContainer } from "../header";
@@ -11,7 +11,7 @@ import { getAccessLevels } from "../articles/api/crud";
 import { Loading } from "../../components/loading";
 
 export const BodyContainer = () => {
-  const [openArtAdd, setOpenArtAdd] = React.useState(false);
+  const [openArtAdd, setOpenArtAdd] = useState(false);
 
   const { isFetching, refetch, data, isFetched } = useQuery('accessLevels', () => getAccessLevels());
   const accessLevels = data?.data;
