@@ -7,6 +7,8 @@ const userRouters = require('./routes/users');
 const articleRouters = require('./routes/articles');
 const commentRouters = require('./routes/comments');
 const universitiesRouter = require('./routes/universities');
+const accessLevelsRouter = require('./routes/accessLevels');
+const friendsRouter = require('./routes/friends');
 const uploadsRouters = require('./routes/uploads');
 const { logger, logError } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
@@ -26,6 +28,8 @@ app.use('/articles', articleRouters);
 app.use('/comments', commentRouters);
 app.use('/universities', universitiesRouter);
 app.use('/uploads', uploadsRouters);
+app.use('/accessLevels', accessLevelsRouter);
+app.use('/friends', friendsRouter);
 
 app.use(logError);
 app.use(errorHandler);

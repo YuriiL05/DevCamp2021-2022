@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../services/db');
+const multer = require('../middlewares/multerFilesToS3');
 
 router.get('/', async (req, res, next) => {
   const { limitArticles, skipArticles } = req.query;
@@ -98,12 +99,18 @@ router.get('/:id/comments', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', multer.single('file'), async (req, res, next) => {
   const newArticleData = req.body;
+  const newFileLocation = req?.file?.location || null;
+
+  const newInfoArticle = {
+    ...newArticleData,
+    File: newFileLocation,
+  };
 
   if (Object.keys(newArticleData).length > 0) {
     try {
-      await db('Articles').insert(newArticleData);
+      await db('Articles').insert(newInfoArticle);
 
       res.status(200).send('New article was added');
     } catch (e) {
@@ -134,15 +141,20 @@ router.post('/:id/likes', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', multer.single('file'), async (req, res, next) => {
   const id = req.params.id;
   const articleUpdates = req.body;
+  const newFileLocation = req?.file?.location || null;
 
   if (Number.isInteger(+id)) {
     try {
       const article = await db('Articles').first().where({ ArticleID: id });
       if (article) {
-        const updatedInfoArticle = { ...article, ...articleUpdates };
+        const updatedInfoArticle = {
+          ...article,
+          ...articleUpdates,
+          File: newFileLocation,
+        };
 
         await db('Articles')
           .where({ ArticleID: id })
