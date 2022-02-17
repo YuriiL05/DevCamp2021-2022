@@ -6,4 +6,5 @@ module.exports = {
   handleClose: PropTypes.func.isRequired,
   submitArticle: PropTypes.func.isRequired,
   article: PropTypes.shape(ArticleValidation),
+  accessLevels: PropTypes.array.isRequired
 }

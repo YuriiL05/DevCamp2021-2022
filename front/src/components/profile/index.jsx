@@ -1,19 +1,39 @@
 import ProfileValidation from "../../propsValidation/ProfileValidation";
 import { Formik, Form } from "formik";
 import { UserIcon } from "../userIcon";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, IconButton } from "@mui/material";
 import TextFieldForm from "../formsUI/textField";
 import ListFieldForm from "../formsUI/listField";
 import * as React from "react";
 import * as yup from "yup";
 
 import "./style.css";
+import { Edit } from "@mui/icons-material";
+import { useState } from "react";
 
 export const Profile = ({ user, universities, updateProfile }) => {
-  const { FirstName, LastName, Email, Phone, Avatar, UniversityID } = user;
+  const { FirstName, LastName } = user;
   const fullName = `${FirstName} ${LastName}`;
   //List of UniversityID and UniversityName
   const universityList = Object.assign( {}, ...universities.map(item => ({ [item.UnId]: item.UniversityName})) );
+
+  const [avatarImg, setAvatarImg] = useState(user?.Avatar || '');
+
+  const handleAvatarImg = (setFieldValue) => e => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setFieldValue("avatar", file);
+
+    if (file.type.match('image.*') && file.size < 10000000) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setAvatarImg(reader.result);
+      }
+      reader.readAsDataURL(file);
+    } else {
+      console.error('Wrong file format or size!');
+    }
+  };
 
   const validationSchema = yup.object({
     FirstName: yup
@@ -32,27 +52,41 @@ export const Profile = ({ user, universities, updateProfile }) => {
       .string()
       .matches(/^\+380\d{9}$/, 'Incorrect Phone number format (+380xxxxxxx)')
       .required('Required (+380xxxxxxx)'),
-    Avatar: yup
-      .string()
-      .required('Required'),
     UniversityID: yup
       .number()
       .required('Required')
   });
 
+  let initialValues = {
+    FirstName: user?.FirstName || '',
+    LastName: user?.LastName || '',
+    Email: user?.Email || '',
+    Phone: user?.Phone || '',
+    avatar: user?.Avatar || '',
+    UniversityID: user?.UniversityID || '',
+  }
+
   return (
     <div className={"profile"}>
-      <h4>My Profile</h4>
+      <p>My Profile</p>
       <Formik
-        initialValues={{ FirstName, LastName, Email, Phone, Avatar, UniversityID }}
+        initialValues={initialValues}
         onSubmit={updateProfile}
         validationSchema={validationSchema}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form className={"profileForm"}>
                 <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <UserIcon avatar={Avatar} fullName={fullName} size={200}/>
+                  <Grid item xs={3}>
+                    <UserIcon avatar={avatarImg} fullName={fullName} size={200}/>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <label htmlFor="icon-button-file">
+                      <input accept="image/*" id="icon-button-file" type="file" name="avatar" hidden onChange={handleAvatarImg(setFieldValue)}/>
+                      <IconButton color="primary" aria-label="upload picture" component="span">
+                        <Edit />
+                      </IconButton>
+                    </label>
                   </Grid>
                   <Grid item xs={12}>
                     <TextFieldForm name="FirstName" label="First Name"/>
