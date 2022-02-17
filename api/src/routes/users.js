@@ -3,6 +3,7 @@ const db = require('../services/db');
 const path = require('path');
 const asyncHandler = require('../middlewares/asyncHandler');
 const customError = require('../middlewares/customError');
+const multer = require('../middlewares/multerToS3');
 
 router.get(
   '/',
@@ -86,15 +87,20 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', multer.single('avatar'), async (req, res, next) => {
   const id = req.params.id;
   const userUpdates = req.body;
+  const newAvatarPath = req?.file?.location || null;
 
   if (Number.isInteger(+id)) {
     try {
       const user = await db('Users').first().where({ UserID: id });
       if (user) {
-        const updatedInfoUser = { ...user, ...userUpdates };
+        const updatedInfoUser = {
+          ...user,
+          ...userUpdates,
+          Avatar: newAvatarPath,
+        };
 
         await db('Users').where({ UserID: id }).update(updatedInfoUser);
         res.status(200).send(updatedInfoUser);
