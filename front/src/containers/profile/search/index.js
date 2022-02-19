@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { getUsers } from "../../users/api/crud";
 import { SearchUsers } from "../../../components/searchUsers";
 import { useState } from "react";
-import { UserForList } from "../../../components/userForList";
+import UserForList from "../../../components/userForList";
 import * as React from "react";
 
 export const SearchContainer = () => {

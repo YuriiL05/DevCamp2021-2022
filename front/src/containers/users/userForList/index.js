@@ -1,4 +1,4 @@
-import { UserForList } from "../../../components/userForList";
+import UserForList from "../../../components/userForList";
 import UserForListValidation from "../../../propsValidation/UserForListValidation";
 
 export const UserForListContainer = ({ userId, firstName, lastName, avatar }) => {
@@ -13,5 +13,5 @@ export const UserForListContainer = ({ userId, firstName, lastName, avatar }) =>
 UserForListContainer.propTypes = UserForListValidation;
 
 UserForListContainer.defaultProps = {
-  avatar: null
+  avatar: "N/A"
 }

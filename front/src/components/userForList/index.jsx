@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 import "./style.css"
-import { UserIcon } from "../userIcon";
+import UserIcon from "../userIcon";
 
-export const UserForList = ( { userId, firstName, lastName, avatar } ) => {
+const UserForList = ( { userId, firstName, lastName, avatar } ) => {
   const fullName = `${firstName} ${lastName}`;
 
   return (
@@ -25,5 +25,7 @@ UserForList.propTypes = {
 };
 
 UserForList.defaultProps = {
-  avatar: null
+  avatar: "N/A"
 }
+
+export default UserForList;

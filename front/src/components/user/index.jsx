@@ -1,5 +1,5 @@
 import UserValidation from "../../propsValidation/UserValidation";
-import { UserIcon } from "../userIcon";
+import UserIcon from "../userIcon";
 import PropTypes from "prop-types";
 
 export const User = ({ user }) => {

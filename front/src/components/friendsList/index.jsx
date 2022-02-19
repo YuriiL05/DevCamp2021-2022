@@ -1,4 +1,4 @@
-import { UserForList } from "../userForList";
+import UserForList from "../userForList";
 import * as React from "react";
 import PropTypes from "prop-types";
 

@@ -1,6 +1,6 @@
 import ProfileValidation from "../../propsValidation/ProfileValidation";
 import { Formik, Form } from "formik";
-import { UserIcon } from "../userIcon";
+import UserIcon from "../userIcon";
 import { Button, Grid, IconButton } from "@mui/material";
 import TextFieldForm from "../formsUI/textField";
 import ListFieldForm from "../formsUI/listField";

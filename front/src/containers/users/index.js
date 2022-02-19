@@ -16,7 +16,7 @@ export const UsersContainer = () => {
                                                    userId={user.UserID}
                                                    firstName={user.FirstName}
                                                    lastName={user.LastName}
-                                                   avatar={user.Avatar}/>))
+                                                   avatar={user.Avatar || undefined}/>))
       }
     </>
   );
