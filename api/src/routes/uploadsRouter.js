@@ -1,4 +1,4 @@
-const db = require('../services/db');
+const db = require('../configs/db');
 const router = require('express').Router();
 const multer = require('../middlewares/multerToS3');
 

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const db = require('../services/db');
+const db = require('../configs/db');
 
 //get comment by id for an article
 router.get('/:commentId', async (req, res, next) => {

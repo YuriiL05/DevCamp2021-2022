@@ -1,7 +1,7 @@
-const { s3 } = require('../services/s3Client');
+const { s3 } = require('../configs/s3Client');
 const multerS3 = require('multer-s3');
 const multer = require('multer');
-const config = require('../services/config');
+const config = require('../configs/config');
 
 const storage = multerS3({
   s3: s3,

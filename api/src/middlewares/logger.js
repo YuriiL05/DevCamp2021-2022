@@ -1,6 +1,6 @@
-const db = require('../services/db');
-const config = require('../services/config');
-const logToFile = require('../services/logToFile');
+const db = require('../configs/db');
+const config = require('../configs/config');
+const logToFile = require('../configs/logToFile');
 
 const logger = async (req, res, next) => {
   const loggedData = {
@@ -13,7 +13,7 @@ const logger = async (req, res, next) => {
   if (config.logsToDB) {
     await db(config.logsTable).insert(loggedData).catch(next);
   }
-  logToFile.error('===========================');
+  logToFile.log('===========================');
   logToFile.log(loggedData);
 
   next();
