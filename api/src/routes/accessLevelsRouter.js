@@ -1,5 +1,5 @@
 const db = require('../configs/db');
-const asyncHandler = require('../services/asyncHandler');
+const asyncHandler = require('../common/asyncHandler');
 const router = require('express').Router();
 
 router.get(

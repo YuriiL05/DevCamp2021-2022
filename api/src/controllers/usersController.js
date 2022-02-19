@@ -1,4 +1,4 @@
-const asyncHandler = require('../services/asyncHandler');
+const asyncHandler = require('../common/asyncHandler');
 const usersService = require('../services/usersService');
 const NotFoundException = require('../errors/NotFoundException');
 const BadRequestException = require('../errors/BadRequestException');
