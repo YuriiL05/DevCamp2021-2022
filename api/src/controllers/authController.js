@@ -2,7 +2,7 @@ const asyncHandler = require('../common/asyncHandler');
 const authService = require('../services/authService');
 
 module.exports = {
-  authGoogle: asyncHandler(async (req, res) => {
+  auth: asyncHandler(async (req, res) => {
     const { accessToken, refreshToken } = await authService.authorizeById(
       req.user.UserID
     );

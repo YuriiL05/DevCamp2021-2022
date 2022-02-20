@@ -5,7 +5,13 @@ const authController = require('../controllers/authController');
 router.post(
   '/google',
   passport.authenticate('google-token', { session: false }),
-  authController.authGoogle
+  authController.auth
+);
+
+router.post(
+  '/facebook',
+  passport.authenticate('facebook-token', { session: false }),
+  authController.auth
 );
 
 router.post('/refresh', authController.refresh);
