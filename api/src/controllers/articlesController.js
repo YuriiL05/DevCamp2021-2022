@@ -27,6 +27,7 @@ module.exports = {
 
   create: asyncHandler(async (req, res) => {
     const articleBody = req.body;
+    console.log(articleBody);
     const newFileLocation = req?.file?.location || null;
 
     const newArticleData = {

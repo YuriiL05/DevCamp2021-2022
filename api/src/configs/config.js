@@ -1,5 +1,8 @@
 module.exports = {
   appPort: process.env.APP_PORT,
+  appSecretKey: process.env.APP_SECRETKEY,
+  authClientId: process.env.GOOGLE_CLIENT_ID,
+  authClientSecret: process.env.CLIENT_SECRET,
   dbHost: process.env.DB_HOST,
   dbPort: process.env.DB_PORT,
   dbUser: process.env.DB_USER,

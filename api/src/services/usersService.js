@@ -7,9 +7,8 @@ module.exports = {
   getById: async (id) => {
     return await userStorage.getById(id);
   },
-  getFriends: async (id) => {
-    const friendType = 1; // RelationTypes table
-    return await userStorage.getFriends(id, friendType);
+  getByEmail: async (email) => {
+    return await userStorage.getByEmail(email);
   },
   create: async (newData) => {
     const [newUserId] = await userStorage.create(newData);
