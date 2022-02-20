@@ -1,5 +1,14 @@
 module.exports = {
   appPort: process.env.APP_PORT,
+  appSecretKey: process.env.APP_SECRETKEY,
+  google: {
+    authClientId: process.env.GOOGLE_CLIENT_ID,
+    authClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  },
+  facebook: {
+    authClientId: process.env.FACEBOOK_CLIENT_ID,
+    authClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  },
   dbHost: process.env.DB_HOST,
   dbPort: process.env.DB_PORT,
   dbUser: process.env.DB_USER,
