@@ -5,11 +5,16 @@ import { Profile } from "../../../components/profile";
 import { Loading } from "../../../components/loading";
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { UpdateProfile } from "../../../components/profile/updateProfile";
 
 export const MyDataContainer = ({ userId, accessLevels }) => {
+  const [userData, setUserData] = useState(undefined);
+  const [openProfileEdit, setOpenProfileEdit] = useState(false);
+
   const [user, universities] = useQueries([{
-    queryKey: `user${userId}`, queryFn: () => getUser(userId)
-  },
+      queryKey: `user${userId}`, queryFn: () => getUser(userId)
+    },
     {
       queryKey: 'universities', queryFn: () => getUniversities()
     }]);
@@ -17,30 +22,44 @@ export const MyDataContainer = ({ userId, accessLevels }) => {
   const { mutate } = useMutation(`user${userId}`, (data) => putUpdateProfile(data));
 
   const updateProfile = (values, { setSubmitting }) => {
-    console.log(values);
     const profileData = {
       UserID: userId,
       FirstName: values.FirstName,
       LastName: values.LastName,
       Phone: values.Phone,
-      UniversityID: values.UniversityID,
-      avatar: values?.avatar
+      UniversityID: values.UniversityID
     }
 
     mutate(profileData);
     setSubmitting(false);
-    alert('Update started!');
+    handleCloseEditProfile();
+    setUserData({...userData, ...profileData});
+  }
+
+  const handleOpenEditProfile = () => {
+    setOpenProfileEdit(true);
+  };
+
+  const handleCloseEditProfile = () => {
+    setOpenProfileEdit(false);
+  };
+
+  if (user.isFetched && !userData) {
+    setUserData(user.data.data);
   }
 
   return (
     <>
       {user.isFetching && <Loading/>}
-      {user.isFetched && universities.isFetched && <Profile
-        user={user?.data?.data}
-        universities={universities?.data?.data}
-        updateProfile={updateProfile}
-        accessLevels={accessLevels}
-      />}
+      {userData && universities.isFetched && <Profile user={userData}
+                                                            universities={universities?.data?.data}
+                                                            handleOpenEditProfile={handleOpenEditProfile} />}
+      {openProfileEdit && <UpdateProfile user={userData}
+                                         universities={universities?.data?.data}
+                                         updateProfile={updateProfile}
+                                         accessLevels={accessLevels}
+                                         open={openProfileEdit}
+                                         handleClose={handleCloseEditProfile} />}
     </>
   );
 };
