@@ -21,6 +21,8 @@
     "react-cropper": "^2.1.8",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.2",
     "yup": "^0.32.11"

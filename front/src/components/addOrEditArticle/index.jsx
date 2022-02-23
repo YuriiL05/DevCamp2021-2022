@@ -37,7 +37,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
       .required('Required')
   });
 
-  let initialValues = {
+  const initialValues = {
     Title: article?.Title || '',
     Body: article?.Body || '',
     AccessLevel: accessLevels.find(item => item.value === (article?.AccessLevelID || 1)),
