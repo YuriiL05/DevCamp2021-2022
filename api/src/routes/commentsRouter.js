@@ -1,6 +1,32 @@
 const router = require('express').Router();
 const db = require('../configs/db');
 
+//get all comments for an article
+router.get('/article/:id', async (req, res, next) => {
+  const id = req.params.id;
+
+  if (Number.isInteger(+id)) {
+    try {
+      const comments = await db('Comments')
+        .where({ ArticleID: id })
+        .timeout(10000);
+
+      if (comments.length > 0) {
+        res.status(200).send(comments);
+      } else {
+        res.status(404);
+        next({ error: `Comments for article Id: ${id} is absent` });
+      }
+    } catch (e) {
+      res.status(500);
+      next({ error: 'Comments cannot be loaded', e });
+    }
+  } else {
+    res.status(400);
+    next({ error: 'Article Id is not correct' });
+  }
+});
+
 //get comment by id for an article
 router.get('/:commentId', async (req, res, next) => {
   const { commentId } = req.params;

@@ -27,15 +27,16 @@ module.exports = {
 
   create: asyncHandler(async (req, res) => {
     const articleBody = req.body;
-    console.log(articleBody);
+    const { UserID } = req.auth;
     const newFileLocation = req?.file?.location || null;
 
     const newArticleData = {
       ...articleBody,
+      UserID,
       File: newFileLocation,
     };
 
-    if (Object.keys(newArticleData).length > 0) {
+    if (Object.keys(articleBody).length > 0 || newFileLocation) {
       const newArticleId = await articlesService.create(newArticleData);
       res.status(201).send({ id: newArticleId });
     } else {
@@ -46,10 +47,12 @@ module.exports = {
   updateById: asyncHandler(async (req, res) => {
     const id = req.params.id;
     const articleBody = req.body;
-    const newFileLocation = req?.file?.location || null;
+    const { UserID } = req.auth;
+    const newFileLocation = req?.file?.location || req.body.File;
 
     const articleUpdates = {
       ...articleBody,
+      UserID,
       File: newFileLocation,
     };
 

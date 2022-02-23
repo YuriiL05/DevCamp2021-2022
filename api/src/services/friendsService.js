@@ -1,23 +1,36 @@
 const friendsStorage = require('./storage/friendsStorage');
 
+//RelationTypes table
+const FRIEND_TYPE = {
+  Friend: 1,
+  RequestToFriend: 2,
+};
+
 module.exports = {
-  getFriends: async (id) => {
-    const friendType = 1; // Friend - RelationTypes table
-    return await friendsStorage.getFriends(id, friendType);
+  getFriendsId: async (id) => {
+    return await friendsStorage.getFriends(id, FRIEND_TYPE.Friend);
   },
-  getRequestsToFriends: async (id) => {
-    const friendType = 2; // RequestToFriend - RelationTypes table
-    return await friendsStorage.getFriends(id, friendType);
+  getRequestsToFriendsId: async (id) => {
+    return await friendsStorage.getFriends(id, FRIEND_TYPE.RequestToFriend);
   },
-  addRequestToFriend: async (newData) => {
-    const [UserRelationID] = await friendsStorage.addRequestToFriend(newData);
+  addRequestToFriend: async (UserID, ReceiverID) => {
+    const newRequest = {
+      UserID,
+      ReceiverID,
+      RelationTypeID: FRIEND_TYPE.RequestToFriend,
+    };
+    const [UserRelationID] = await friendsStorage.addRequestToFriend(
+      newRequest
+    );
     return UserRelationID;
   },
-  addToFriend: async (updatedInfo, id) => {
-    await friendsStorage.addToFriend(updatedInfo, id);
-    return await friendsStorage.getById(id);
+  addToFriend: async (UserID, ReceiverID) => {
+    const toFriend = {
+      RelationTypeID: FRIEND_TYPE.RequestToFriend,
+    };
+    return await friendsStorage.addToFriend(UserID, ReceiverID, toFriend);
   },
-  removeFriend: async (id) => {
-    return await friendsStorage.removeFriend(id);
+  removeFriend: async (UserRelationID, id) => {
+    return await friendsStorage.removeFriend(UserRelationID, id);
   },
 };

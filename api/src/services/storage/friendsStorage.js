@@ -24,9 +24,16 @@ module.exports = {
   addRequestToFriend: async (newRequestData) =>
     db('UserRelations').returning('UserRelationID').insert(newRequestData),
 
-  addToFriend: async (updatedRequestType, id) =>
-    db('UserRelations').where('UserRelationID', id).update(updatedRequestType),
+  addToFriend: async (UserID, ReceiverID, toFriend) =>
+    db('UserRelations')
+      .where({ UserID: UserID, ReceiverID: ReceiverID })
+      .update(toFriend),
 
-  removeFriend: async (id) =>
-    db('UserRelations').where('UserRelationID', id).delete(),
+  removeFriend: async (UserRelationID, id) =>
+    db('UserRelations')
+      .where(function () {
+        this.where('UserID', id).orWhere('ReceiverID', id);
+      })
+      .andWhere('UserRelationID', UserRelationID)
+      .delete(),
 };

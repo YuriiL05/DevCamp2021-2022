@@ -1,12 +1,11 @@
 const asyncHandler = require('../common/asyncHandler');
 const friendsService = require('../services/friendsService');
 const NotFoundException = require('../errors/NotFoundException');
-const BadRequestException = require('../errors/BadRequestException');
 
 module.exports = {
   getFriends: asyncHandler(async (req, res) => {
     const id = req.params.id;
-    const friends = await friendsService.getFriends(id);
+    const friends = await friendsService.getFriendsId(id);
 
     if (friends.length === 0) {
       throw new NotFoundException('Friends not found');
@@ -17,7 +16,7 @@ module.exports = {
 
   getRequestsToFriends: asyncHandler(async (req, res) => {
     const id = req.params.id;
-    const reqToFriends = await friendsService.getRequestsToFriends(id);
+    const reqToFriends = await friendsService.getRequestsToFriendsId(id);
 
     if (reqToFriends.length === 0) {
       throw new NotFoundException('Requests to Friends not found');
@@ -27,42 +26,30 @@ module.exports = {
   }),
 
   addRequestToFriend: asyncHandler(async (req, res) => {
-    const newUserData = req.body;
+    const UserID = req.auth.UserID;
+    const ReceiverID = req.params.id;
 
-    if (Object.keys(newUserData).length > 0) {
-      const newUserId = await friendsService.create(newUserData);
-      res.status(201).send({ id: newUserId });
-    } else {
-      throw new BadRequestException('User information is empty');
-    }
+    const newUserRelationID = await friendsService.addRequestToFriend(
+      UserID,
+      ReceiverID
+    );
+    res.status(201).send({ id: newUserRelationID });
   }),
 
-  updateById: asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const userUpdates = req.body;
+  updateToFriend: asyncHandler(async (req, res) => {
+    const ReceiverID = req.auth.id;
+    const UserID = req.params.id;
 
-    if (Object.keys(userUpdates).length > 0) {
-      const updatedUser = await friendsService.updateById(userUpdates, id);
-      if (updatedUser) {
-        res.status(201).send(updatedUser);
-      } else {
-        throw new NotFoundException(`User with Id: ${id} is not found`);
-      }
-    } else {
-      throw new BadRequestException('User information is empty');
-    }
+    const updatedUser = await friendsService.addToFriend(UserID, ReceiverID);
+
+    res.status(201).send(updatedUser);
   }),
 
-  deleteById: asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const isDeleted = await friendsService.deleteById(id);
+  removeFriend: asyncHandler(async (req, res) => {
+    const id = req.auth.id;
+    const UserRelationID = req.params.requestId;
+    const isDeleted = await friendsService.removeFriend(UserRelationID, id);
 
-    res
-      .status(200)
-      .send(
-        isDeleted
-          ? `User with Id: ${id} is deleted`
-          : `User with Id: ${id} is absent`
-      );
+    res.status(200).send(isDeleted ? `Friend is removed` : `Friend is absent`);
   }),
 };
