@@ -7,6 +7,9 @@ module.exports = {
   getById: async (id) => {
     return await userStorage.getById(id);
   },
+  getRoleById: async (id) => {
+    return await userStorage.getRoleById(id);
+  },
   getByEmail: async (email) => {
     return await userStorage.getByEmail(email);
   },

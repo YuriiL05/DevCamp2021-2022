@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
     let decoded;
     try {
       decoded = await new Promise((resolve, reject) => {
-        jwt.verify(token, appSecretKey, (err, result) => {
+        jwt.verify(token, appSecretKey, null, (err, result) => {
           if (err) {
             return reject(err);
           }

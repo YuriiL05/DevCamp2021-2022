@@ -17,7 +17,6 @@ module.exports = {
   }),
 
   refresh: asyncHandler(async (req, res) => {
-    console.log(req.body.refreshToken);
     const { accessToken, refreshToken } = await authService.refresh(
       req.body.refreshToken
     );

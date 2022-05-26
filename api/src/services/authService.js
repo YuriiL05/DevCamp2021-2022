@@ -17,7 +17,8 @@ module.exports = {
         config.appSecretKey,
         {
           expiresIn: '1h',
-        }
+        },
+        null
       );
       const refreshToken = uuidv4();
       await sessionsStorage.create({
@@ -42,7 +43,8 @@ module.exports = {
         config.appSecretKey,
         {
           expiresIn: '1h',
-        }
+        },
+        null
       );
       const refreshToken = uuidv4();
       await sessionsStorage.deleteByToken(session.Token);

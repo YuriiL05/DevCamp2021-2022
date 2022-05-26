@@ -4,21 +4,15 @@ module.exports = {
   getAll: async (limitArticles, skipArticles) =>
     db('Articles')
       .join('Users', 'Articles.UserID', '=', 'Users.UserID')
-      .join(
-        'Universities',
-        'Users.UniversityID',
-        '=',
-        'Universities.UniversityID'
-      )
       .select(
         'ArticleID',
+        'Articles.UserID as UserID',
         'AccessLevelID',
         'Avatar',
         'Body',
         'Date',
         'FirstName',
         'LastName',
-        'Name as UniversityName',
         'Title'
       )
       .orderBy('ArticleID', 'desc')
