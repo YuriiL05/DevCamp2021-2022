@@ -1,6 +1,3 @@
-const usersService = require('../services/usersService');
-const articlesService = require('../services/articlesService');
-
 const Action = {
   READ: 'read',
   CREATE: 'create',
@@ -14,7 +11,7 @@ const Possession = {
 };
 
 const Resources = {
-  POST: 'article',
+  ARTICLE: 'article',
   USER: 'user',
 };
 
@@ -55,48 +52,33 @@ const allowOwn = [
     action: Action.UPDATE,
     possession: Possession.OWN,
   },
+  {
+    action: Action.DELETE,
+    possession: Possession.OWN,
+  },
+];
+
+const allowOwnUser = [
+  {
+    action: Action.READ,
+    possession: Possession.ANY,
+  },
+  {
+    action: Action.UPDATE,
+    possession: Possession.OWN,
+  },
 ];
 
 const aclRules = {
   [Roles.ADMIN]: {
     [Resources.USER]: allowAny,
-    [Resources.POST]: allowAny,
+    [Resources.ARTICLE]: allowAny,
   },
   [Roles.USER]: {
-    [Resources.USER]: allowOwn,
-    [Resources.POST]: allowOwn,
+    [Resources.USER]: allowOwnUser,
+    [Resources.ARTICLE]: allowOwn,
   },
 };
-
-const userUpdate = [
-  {
-    resource: 'user',
-    action: 'update',
-    possession: 'own',
-    getResource: (req) => usersService.getById(req.params.id),
-    isOwn: (resource, userId) => resource.id === userId,
-  },
-];
-
-const articleUpdate = [
-  {
-    resource: 'article',
-    action: 'update',
-    possession: 'own',
-    getResource: (req) => articlesService.getById(req.params.id),
-    isOwn: (resource, userId) => resource.UserID === userId,
-  },
-];
-
-const articleDelete = [
-  {
-    resource: 'article',
-    action: 'delete',
-    possession: 'own',
-    getResource: (req) => articlesService.getById(req.params.ArticleID),
-    isOwn: (resource, userId) => resource.UserID === userId,
-  },
-];
 
 module.exports = {
   Action,
@@ -106,7 +88,4 @@ module.exports = {
   allowAny,
   allowOwn,
   aclRules,
-  userUpdate,
-  articleUpdate,
-  articleDelete,
 };

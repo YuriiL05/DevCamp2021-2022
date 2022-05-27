@@ -25,7 +25,7 @@ module.exports = {
 
   getRoleById: async (id) =>
     db('Users')
-      .join('UserRole', 'Users.UserID', '=', 'UserRole.UserID')
+      .leftJoin('UserRole', 'Users.UserID', '=', 'UserRole.UserID')
       .join('Roles', 'UserRole.RoleID', '=', 'Roles.RoleID')
       .select('Users.UserID as UserID', 'Roles.slug as role')
       .first()

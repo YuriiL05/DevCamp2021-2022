@@ -3,7 +3,7 @@ const multer = require('../middlewares/multerFilesToS3');
 const articlesController = require('../controllers/articlesController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const aclMiddleware = require('../middlewares/aclMiddleware');
-const { articleUpdate, articleDelete } = require('../configs/acl.config');
+const { articleUpdate, articleDelete } = require('../configs/acl.rules');
 
 router.get('/', articlesController.get);
 router.get('/:id', articlesController.getById);
