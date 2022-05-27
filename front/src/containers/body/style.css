@@ -1,13 +1,10 @@
 .bodyContent {
     display: flex;
-    background-color: antiquewhite;
 }
 .content {
-    background-color: rgba(66, 82, 91, 0.91);
     min-height: 95vh;
     min-width: 80%;
     font-size: calc(10px + 2vmin);
-    color: white;
     justify-self: center;
     margin: auto;
     padding: 40px;

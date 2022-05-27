@@ -6,5 +6,5 @@ module.exports = {
   Email: PropTypes.string.isRequired,
   Avatar: PropTypes.string,
   Phone: PropTypes.string.isRequired,
-  UniversityID: PropTypes.number
+  UniversityName: PropTypes.string
 }

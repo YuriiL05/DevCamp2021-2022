@@ -1,0 +1,9 @@
+header {
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.btn:hover, .btn:active {
+}

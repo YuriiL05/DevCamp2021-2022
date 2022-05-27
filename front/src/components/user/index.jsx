@@ -3,7 +3,7 @@ import UserIcon from "../userIcon";
 import PropTypes from "prop-types";
 
 export const User = ({ user }) => {
-  const { FirstName, LastName, Email, Phone, Avatar, Name } = user;
+  const { FirstName, LastName, Email, Phone, Avatar, UniversityName } = user;
   const fullName = `${FirstName} ${LastName}`;
 
   return (
@@ -12,7 +12,7 @@ export const User = ({ user }) => {
       <p>Name: {fullName}</p>
       <p>Email: {Email}</p>
       <p>Phone: {Phone}</p>
-      <p>University: {Name}</p>
+      <p>University: {UniversityName}</p>
     </div>
   );
 };
