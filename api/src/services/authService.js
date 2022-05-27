@@ -24,6 +24,7 @@ module.exports = {
       await sessionsStorage.create({
         UserID: user.UserID,
         Token: refreshToken,
+        Date: new Date().toISOString(),
       });
       return { accessToken, refreshToken };
     }
@@ -51,6 +52,7 @@ module.exports = {
       await sessionsStorage.create({
         UserID: session.UserID,
         Token: refreshToken,
+        Date: new Date().toISOString(),
       });
       return { accessToken, refreshToken };
     }
