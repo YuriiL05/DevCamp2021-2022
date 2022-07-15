@@ -1,5 +1,5 @@
 const asyncHandler = require('../common/asyncHandler');
-const universitiesService = require('../services/usersService');
+const universitiesService = require('../services/universitiesService');
 
 module.exports = {
   getAll: asyncHandler(async (req, res) => {

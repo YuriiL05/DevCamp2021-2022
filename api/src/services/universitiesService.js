@@ -1,7 +1,7 @@
-const universitiesStore = require('./usersService');
+const universitiesStorage = require('./storage/universitiesStorage');
 
 module.exports = {
   getAll: async () => {
-    return await universitiesStore.getAll();
+    return await universitiesStorage.getAll();
   },
 };
