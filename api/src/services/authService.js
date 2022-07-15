@@ -17,12 +17,14 @@ module.exports = {
         config.appSecretKey,
         {
           expiresIn: '1h',
-        }
+        },
+        null
       );
       const refreshToken = uuidv4();
       await sessionsStorage.create({
         UserID: user.UserID,
         Token: refreshToken,
+        Date: new Date().toISOString(),
       });
       return { accessToken, refreshToken };
     }
@@ -42,13 +44,15 @@ module.exports = {
         config.appSecretKey,
         {
           expiresIn: '1h',
-        }
+        },
+        null
       );
       const refreshToken = uuidv4();
       await sessionsStorage.deleteByToken(session.Token);
       await sessionsStorage.create({
         UserID: session.UserID,
         Token: refreshToken,
+        Date: new Date().toISOString(),
       });
       return { accessToken, refreshToken };
     }

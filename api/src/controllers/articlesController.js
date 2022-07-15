@@ -47,12 +47,12 @@ module.exports = {
   updateById: asyncHandler(async (req, res) => {
     const id = req.params.id;
     const articleBody = req.body;
-    const { UserID } = req.auth;
     const newFileLocation = req?.file?.location || req.body.File;
 
     const articleUpdates = {
-      ...articleBody,
-      UserID,
+      Title: articleBody.Title,
+      Body: articleBody.Body,
+      AccessLevelID: articleBody.AccessLevelID,
       File: newFileLocation,
     };
 
