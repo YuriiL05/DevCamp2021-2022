@@ -1,33 +1,42 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-import './style.css';
-import { Button, Stack } from "@mui/material";
 import PropTypes from "prop-types";
+import { Header } from "../../components/header";
+import { LoginContainer } from "../login";
 
 //Users button should be removed
 export const HeaderContainer = ({ setOpenArtAdd }) => {
+  const [auth, setAuth] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
 
   const handleClickOpenArt = () => {
     setOpenArtAdd(true);
   };
 
+  const handleClickOpenLogin = () => {
+    setOpenLogin(true);
+  };
+
+  const handleClickCloseLogin = () => {
+    setOpenLogin(false);
+  };
+
+  const handleAuth = () => {
+    setAuth(true);
+    handleClickCloseLogin();
+  };
+
   return (
     <>
-      <header>
-        <Stack spacing={2} direction="row">
-          <Link to="/" className={"btn"}>
-            <Button variant="contained">Articles</Button>
-          </Link>
-          <Button variant="outlined" onClick={handleClickOpenArt}>Add Article</Button>
-          <Link to="users" className={"btn"}>
-            <Button variant="contained">Users</Button>
-          </Link>
-          <Link to="profile" className={"btn"}>
-            <Button variant="contained">Profile</Button>
-          </Link>
-        </Stack>
-      </header>
+      <Header handleClickOpenArt={handleClickOpenArt}
+              handleClickOpenLogin={handleClickOpenLogin}
+              auth={auth}
+      />
+      <LoginContainer
+          handleClickCloseLogin={handleClickCloseLogin}
+          openLogin={openLogin}
+          handleAuth={handleAuth}
+      />
     </>
   );
 };

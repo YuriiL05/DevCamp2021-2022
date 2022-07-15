@@ -18,8 +18,6 @@ export const BodyContainer = () => {
   const { isFetching, refetch, data, isFetched } = useQuery('accessLevels', () => getAccessLevels());
   const accessLevels = data?.data;
 
-  console.log(userData);
-
   return (
     <>
       <userContext.Provider value={userData}>

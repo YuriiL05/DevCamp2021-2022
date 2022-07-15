@@ -16,11 +16,18 @@ module.exports = {
         },
         config.appSecretKey,
         {
-          expiresIn: '1h',
+          expiresIn: '30m',
         },
         null
       );
-      const refreshToken = uuidv4();
+      const refreshToken = uuidv4(null, null, null);
+      const numberOfSessions = await sessionsStorage.getCountForUser(
+        user.UserID
+      );
+
+      if (numberOfSessions.count >= 3) {
+        await sessionsStorage.deleteAllForUser(user.UserID);
+      }
       await sessionsStorage.create({
         UserID: user.UserID,
         Token: refreshToken,
@@ -47,7 +54,7 @@ module.exports = {
         },
         null
       );
-      const refreshToken = uuidv4();
+      const refreshToken = uuidv4(null, null, null);
       await sessionsStorage.deleteByToken(session.Token);
       await sessionsStorage.create({
         UserID: session.UserID,
@@ -60,8 +67,5 @@ module.exports = {
   },
   logout: async (refreshToken) => {
     await sessionsStorage.deleteByToken(refreshToken);
-  },
-  getByToken: async (refreshToken) => {
-    return await sessionsStorage.getByToken(refreshToken);
   },
 };
