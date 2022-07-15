@@ -19,15 +19,18 @@ const aclMiddleware = (rule) => async (req, res, next) => {
         if (checkRule.possession === Possession.ANY) {
           if (canUseAnyAction) {
             isAllow = true;
+            break;
           }
         } else {
           if (canUseAnyAction) {
             isAllow = true;
+            break;
           } else {
             const resource = await checkRule.getResource(req);
             console.log(resource);
             if (resource && checkRule.isOwn(resource, user.UserID)) {
               isAllow = true;
+              break;
             }
           }
         }
