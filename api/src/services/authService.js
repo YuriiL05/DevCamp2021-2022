@@ -16,7 +16,7 @@ module.exports = {
         },
         config.appSecretKey,
         {
-          expiresIn: '30m',
+          expiresIn: config.jwtTokenExpiration || '30m',
         },
         null
       );
@@ -50,7 +50,7 @@ module.exports = {
         },
         config.appSecretKey,
         {
-          expiresIn: '1h',
+          expiresIn: config.jwtTokenExpiration || '30m',
         },
         null
       );

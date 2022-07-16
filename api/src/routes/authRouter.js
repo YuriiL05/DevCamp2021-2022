@@ -4,16 +4,14 @@ const authController = require('../controllers/authController');
 
 router.post(
   '/google',
-  passport.authenticate('google-token', { session: false }),
+  passport.authenticate('google-token', { session: false }, null),
   authController.auth
 );
-
 router.post(
   '/facebook',
-  passport.authenticate('facebook-token', { session: false }),
+  passport.authenticate('facebook-token', { session: false }, null),
   authController.auth
 );
-
 router.post('/refresh', authController.refresh);
 router.post('/logout', authController.logout);
 

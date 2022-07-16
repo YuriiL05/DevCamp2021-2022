@@ -8,7 +8,6 @@ const { userDelete, userUpdate, userCreate } = require('../configs/acl.rules');
 router.use(authMiddleware);
 router.get('/', userController.get);
 router.get('/:id', userController.getById);
-router.get('/:id/friends', userController.getFriends);
 router.post('/', aclMiddleware(userCreate), userController.create);
 router.put('/:id', aclMiddleware(userUpdate), userController.updateById);
 router.put(

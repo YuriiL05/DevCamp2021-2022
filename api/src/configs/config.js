@@ -21,4 +21,5 @@ module.exports = {
   awsAccessKeyId: process.env.AWS_ACCESSKEYID,
   awsSecretAccessKey: process.env.AWS_SECRETACCESSKEY,
   awsBucketName: process.env.AWS_BUCKETNAME,
+  jwtTokenExpiration: process.env.JWT_TOKEN_EXPIRATION,
 };

@@ -34,11 +34,12 @@ module.exports = {
       ...articleBody,
       UserID,
       File: newFileLocation,
+      CreateDate: new Date().toISOString(),
     };
 
     if (Object.keys(articleBody).length > 0 || newFileLocation) {
       const newArticleId = await articlesService.create(newArticleData);
-      res.status(201).send({ id: newArticleId });
+      res.status(201).send({ ArticleId: newArticleId });
     } else {
       throw new BadRequestException('Article information is empty');
     }
@@ -46,14 +47,15 @@ module.exports = {
 
   updateById: asyncHandler(async (req, res) => {
     const id = req.params.id;
-    const articleBody = req.body;
-    const newFileLocation = req?.file?.location || req.body.File;
+    const { Title, Text, AccessLevelID } = req.body;
+    const File = req?.file?.location || req.body.File;
 
     const articleUpdates = {
-      Title: articleBody.Title,
-      Body: articleBody.Body,
-      AccessLevelID: articleBody.AccessLevelID,
-      File: newFileLocation,
+      Title,
+      Text,
+      AccessLevelID,
+      File,
+      UpdateDate: new Date().toISOString(),
     };
 
     if (Object.keys(articleUpdates).length > 0) {

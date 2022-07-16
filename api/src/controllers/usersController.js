@@ -25,17 +25,6 @@ module.exports = {
     }
   }),
 
-  getFriends: asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const friends = await usersService.getFriends(id);
-
-    if (friends.length === 0) {
-      throw new NotFoundException('Friends not found');
-    } else {
-      res.status(200).send(friends);
-    }
-  }),
-
   create: asyncHandler(async (req, res) => {
     const newUserData = req.body;
 
