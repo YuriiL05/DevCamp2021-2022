@@ -3,19 +3,36 @@ const multer = require('../middlewares/multerToS3');
 const userController = require('../controllers/usersController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const aclMiddleware = require('../middlewares/aclMiddleware');
-const { userDelete, userUpdate, userCreate } = require('../configs/acl.rules');
+const validationMiddleware = require('../middlewares/validationMiddleware');
+const aclRules = require('../configs/acl.rules');
+const validationRules = require('../configs/validation.rules');
 
 router.use(authMiddleware);
 router.get('/', userController.get);
 router.get('/:id', userController.getById);
-router.post('/', aclMiddleware(userCreate), userController.create);
-router.put('/:id', aclMiddleware(userUpdate), userController.updateById);
+router.post(
+  '/',
+  aclMiddleware(aclRules.userCreate),
+  validationMiddleware(validationRules.user),
+  userController.create
+);
+router.put(
+  '/:id',
+  aclMiddleware(aclRules.userUpdate),
+  validationMiddleware(validationRules.user),
+  userController.updateById
+);
 router.put(
   '/:id/avatar',
-  aclMiddleware(userUpdate),
+  aclMiddleware(aclRules.userUpdate),
+  validationMiddleware(validationRules.avatar),
   multer.single('avatar'),
   userController.updateAvatar
 );
-router.delete('/:id', aclMiddleware(userDelete), userController.deleteById);
+router.delete(
+  '/:id',
+  aclMiddleware(aclRules.userDelete),
+  userController.deleteById
+);
 
 module.exports = router;

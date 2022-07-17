@@ -27,7 +27,6 @@ const aclMiddleware = (rule) => async (req, res, next) => {
             break;
           } else {
             const resource = await checkRule.getResource(req);
-            console.log(resource);
             if (resource && checkRule.isOwn(resource, user.UserID)) {
               isAllow = true;
               break;
