@@ -1,8 +1,9 @@
 const UnprocessableEntityException = require('../errors/UnprocessableEntityException');
+const db = require('../configs/db');
+const { parameterTypes } = require('../configs/validation.config');
 
 const validationMiddleware = (rules) => async (req, res, next) => {
   const errorMessage = {};
-  let isValid = true;
 
   for await (const parameterName of Object.keys(rules.body)) {
     const validationResults = [];
@@ -10,41 +11,74 @@ const validationMiddleware = (rules) => async (req, res, next) => {
     const isParameterPresent = req.body.hasOwnProperty(parameterName);
 
     if (!isParameterPresent && rules.body[parameterName]['isRequired']) {
-      validationResults.push('is required');
+      errorMessage[parameterName] = ['is required'];
       continue;
     } else if (!isParameterPresent) {
       continue;
     }
 
-    const parameterVlue = req.body[parameterName];
+    const parameterValue = req.body[parameterName];
 
     for await (const validationRule of Object.entries(
       rules.body[parameterName]
     )) {
-      switch (validationRule[0]) {
+      const validationKey = validationRule[0];
+      const validationValue = validationRule[1];
+
+      switch (validationKey) {
         case 'parameterType':
-          if (
-            validationRule[1] === 'name' &&
-            !/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(parameterVlue)
-          ) {
-            validationResults.push('format is not acceptable for name');
-          } else if (
-            validationRule[1] === 'email' &&
-            !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-              parameterVlue
-            )
-          ) {
-            validationResults.push('format is not acceptable for email');
+          if (!parameterTypes[validationValue].pattern.test(parameterValue)) {
+            validationResults.push(parameterTypes[validationValue].message);
           }
+          break;
+        case 'maxLength':
+          if (parameterValue.length > validationValue) {
+            validationResults.push(`is to long (> ${validationValue})`);
+          }
+          break;
+        case 'minLength':
+          if (parameterValue.length < validationValue) {
+            validationResults.push(`is to short (< ${validationValue})`);
+          }
+          break;
+        case 'max':
+          if (parameterValue > validationValue) {
+            validationResults.push(
+              `should not be more then ${validationValue}`
+            );
+          }
+          break;
+        case 'min':
+          if (parameterValue < validationValue) {
+            validationResults.push(`should not be les then ${validationValue}`);
+          }
+          break;
+        case 'regex':
+          if (!validationValue.test(parameterValue)) {
+            validationResults.push(`is not match to: ${validationValue}`);
+          }
+          break;
+        case 'isUnique':
+          // eslint-disable-next-line no-case-declarations
+          const dataInDb = await db(validationValue['tableName'])
+            .select()
+            .first()
+            .where(parameterName, parameterValue);
+          if (
+            dataInDb &&
+            dataInDb[validationValue['tableId']] !== +req.params?.id
+          ) {
+            validationResults.push(`is not unique`);
+          }
+          break;
       }
     }
     if (validationResults.length > 0) {
       errorMessage[parameterName] = validationResults;
-      isValid = false;
     }
   }
 
-  if (isValid) {
+  if (!Object.keys(errorMessage).length) {
     return next();
   }
 

@@ -9,8 +9,9 @@ module.exports = {
         'Articles.UserID as UserID',
         'AccessLevelID',
         'Avatar',
-        'Body',
-        'Date',
+        'Text',
+        'CreateDate',
+        'UpdateDate',
         'FirstName',
         'LastName',
         'Title'

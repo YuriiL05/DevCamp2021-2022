@@ -4,12 +4,15 @@ const articlesController = require('../controllers/articlesController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const aclMiddleware = require('../middlewares/aclMiddleware');
 const { articleUpdate, articleDelete } = require('../configs/acl.rules');
+const validationMiddleware = require('../middlewares/validationMiddleware');
+const validationRules = require('../configs/validation.rules');
 
 router.get('/', articlesController.get);
 router.get('/:id', articlesController.getById);
 router.post(
   '/',
   authMiddleware,
+  validationMiddleware(validationRules.article),
   multer.single('file'),
   articlesController.create
 );
@@ -17,6 +20,7 @@ router.put(
   '/:id',
   authMiddleware,
   aclMiddleware(articleUpdate),
+  validationMiddleware(validationRules.article),
   multer.single('file'),
   articlesController.updateById
 );
