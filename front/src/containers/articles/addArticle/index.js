@@ -4,10 +4,9 @@ import { postAddArticle } from "../api/crud";
 import { Loading } from "../../../components/loading";
 import PropTypes from "prop-types";
 import { AddOrEditArticleContainer } from "../addOrEditArticle";
+import constants from "../../../constants"
 
-export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd, accessLevels }) => {
-  //User Id should be set after Login
-  const UserID = 1;
+export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd }) => {
 
   const handleCloseArt = () => {
     setOpenArtAdd(false);
@@ -17,7 +16,6 @@ export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd, accessLevels })
 
   const addArticle = (values) => {
     const articleData = {
-      UserID,
       Title: values.Title,
       Text: values.Text,
       AccessLevelID: values.AccessLevel.value,
@@ -35,13 +33,12 @@ export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd, accessLevels })
                                  handleClose={handleCloseArt}
                                  submitArticle={addArticle}
                                  article={undefined}
-                                 accessLevels={accessLevels}/>
+                                 accessLevels={constants.AccessLevels}/>
     </>
   );
 };
 
 AddArticleContainer.propTypes = {
   openArtAdd: PropTypes.bool.isRequired,
-  setOpenArtAdd: PropTypes.func.isRequired,
-  accessLevels: PropTypes.array.isRequired
+  setOpenArtAdd: PropTypes.func.isRequired
 }

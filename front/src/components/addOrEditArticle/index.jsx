@@ -17,8 +17,9 @@ import AddOrEditArticleValidation from "../../propsValidation/AddOrEditArticleVa
 import FormikAutocomplete from "../formsUI/formikAutocompleteField";
 import { Image } from "@mui/icons-material";
 import { useState } from "react";
+import constants from "../../constants"
 
-export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, accessLevels }) => {
+export const AddOrEditArticle = ({ open, handleClose, submitArticle, article }) => {
 
   const [file, setFile] = useState(article?.File || null);
 
@@ -40,7 +41,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
   const initialValues = {
     Title: article?.Title || '',
     Text: article?.Text || '',
-    AccessLevel: accessLevels.find(item => item.value === (article?.AccessLevelID || 1)),
+    AccessLevel: constants.AccessLevels.find(item => item.value === (article?.AccessLevelID || 1)),
     ...article,
   }
 
@@ -107,7 +108,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
                         <Field component={FormikAutocomplete}
                                name="AccessLevel"
                                label="Visible to"
-                               options={accessLevels} />
+                               options={constants.AccessLevels} />
                       </Grid>
                     </Grid>
                     <DialogActions sx={{marginTop: 5}}>

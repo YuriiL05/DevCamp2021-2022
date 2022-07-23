@@ -1,7 +1,7 @@
 import { AddOrEditArticle } from "../../../components/addOrEditArticle";
 import AddOrEditArticleValidation from "../../../propsValidation/AddOrEditArticleValidation";
 
-export const AddOrEditArticleContainer = ({ open, handleClose, submitArticle, article, accessLevels }) => {
+export const AddOrEditArticleContainer = ({ open, handleClose, submitArticle, article }) => {
 
   return (
     <>
@@ -9,7 +9,7 @@ export const AddOrEditArticleContainer = ({ open, handleClose, submitArticle, ar
                         handleClose={handleClose}
                         submitArticle={submitArticle}
                         article={article}
-                        accessLevels={accessLevels} />
+      />
     </>
   );
 };

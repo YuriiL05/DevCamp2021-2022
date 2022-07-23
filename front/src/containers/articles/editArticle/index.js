@@ -3,11 +3,9 @@ import React from "react";
 import { putEditArticle, getArticle } from "../api/crud";
 import { Loading } from "../../../components/loading";
 import PropTypes from "prop-types";
-import { useOutletContext } from "react-router-dom";
 import { AddOrEditArticleContainer } from "../addOrEditArticle";
 
 export const EditArticleContainer = ({ articleId, openArtEdit, handleCloseEditArt }) => {
-  const accessLevels = useOutletContext();
 
   const { isFetching, data, isFetched } = useQuery(`article${articleId}`, () => getArticle(articleId));
   const article = data?.data;
@@ -34,7 +32,7 @@ export const EditArticleContainer = ({ articleId, openArtEdit, handleCloseEditAr
                                       handleClose={handleCloseEditArt}
                                       submitArticle={editArticle}
                                       article={article}
-                                      accessLevels={accessLevels}/>
+      />
       }
     </>
   );

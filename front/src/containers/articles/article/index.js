@@ -19,7 +19,7 @@ export const ArticleContainer = () => {
 
   const { id } = useParams();
 
-  const { isFetching, refetch, data, isFetched } = useQuery(`article${id}`, () => getArticle(id));
+  const { isFetching, data, isFetched } = useQuery(`article${id}`, () => getArticle(id));
   const article = data?.data;
 
   if (id.match(validation.digits)) {
