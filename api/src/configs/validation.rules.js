@@ -50,6 +50,7 @@ const article = {
       minLength: 5,
     },
     AccessLevelID: {
+      isRequired: true,
       parameterType: 'number',
     },
     Title: {

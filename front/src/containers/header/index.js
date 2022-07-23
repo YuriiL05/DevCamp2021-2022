@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import PropTypes from "prop-types";
 import { Header } from "../../components/header";
-import { LoginContainer } from "../login";
+import { LoginHeaderContainer } from "../loginHeader";
 
 //Users button should be removed
 export const HeaderContainer = ({ setOpenArtAdd }) => {
@@ -32,7 +32,7 @@ export const HeaderContainer = ({ setOpenArtAdd }) => {
               handleClickOpenLogin={handleClickOpenLogin}
               auth={auth}
       />
-      <LoginContainer
+      <LoginHeaderContainer
           handleClickCloseLogin={handleClickCloseLogin}
           openLogin={openLogin}
           handleAuth={handleAuth}

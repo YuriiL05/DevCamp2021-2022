@@ -27,7 +27,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
       .string()
       .max(90, 'Maximum 90 characters')
       .required('Title is required'),
-    Body: yup
+    Text: yup
       .string()
       .min(5, 'Minimum 5 characters')
       .required('Provide some text'),
@@ -39,7 +39,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
 
   const initialValues = {
     Title: article?.Title || '',
-    Body: article?.Body || '',
+    Text: article?.Text || '',
     AccessLevel: accessLevels.find(item => item.value === (article?.AccessLevelID || 1)),
     ...article,
   }
@@ -86,7 +86,7 @@ export const AddOrEditArticle = ({ open, handleClose, submitArticle, article, ac
                       </Grid>
                       <Grid item xs={12}>
                         <Field component={TextField}
-                               name="Body"
+                               name="Text"
                                label="Text..."
                                fullWidth={true}
                                variant="outlined"

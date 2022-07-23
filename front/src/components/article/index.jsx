@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const ArticleValidation = require("../../propsValidation/ArticleValidation")
 
 export const Article = ( { article, handleArticleEdit } ) => {
-  const { ArticleID, Title, Body, Date} = article;
+  const { ArticleID, Title, Text, CreateDate} = article;
 
   return (
     <div className={"article"}>
@@ -15,8 +15,8 @@ export const Article = ( { article, handleArticleEdit } ) => {
       </Button>
       <p>Title: {Title}</p>
       <p>Text:</p>
-      <p>{Body}</p>
-      <p>{Date.split('T')[0]}</p>
+      <p>{Text}</p>
+      <p>{CreateDate.split('T')[0]}</p>
       <p>Comments: Test comment</p>
     </div>
   );

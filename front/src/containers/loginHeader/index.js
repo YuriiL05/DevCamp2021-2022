@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import userContext from "../../contexts/userContext";
 import { useMutation } from "react-query";
 import { postGoogleAuth } from "../profile/api/crud";
-import { Login } from "../../components/login";
+import { LoginLightBox } from "../../components/loginLightBox";
 
-export const LoginContainer = ({ handleClickCloseLogin, openLogin, handleAuth }) => {
+export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin, handleAuth }) => {
   const { setUserData } = useContext(userContext);
 
   const { mutateAsync, data } = useMutation(`googleAuth`, (data) => postGoogleAuth(data));
@@ -34,7 +34,7 @@ export const LoginContainer = ({ handleClickCloseLogin, openLogin, handleAuth })
 
   return (
     <>
-      <Login handleClickCloseLogin={handleClickCloseLogin}
+      <LoginLightBox handleClickCloseLogin={handleClickCloseLogin}
              openLogin={openLogin}
              handleGoogleAuth={handleGoogleAuth}
              handleGoogleAuthFail={handleGoogleAuthFail}/>
@@ -42,7 +42,7 @@ export const LoginContainer = ({ handleClickCloseLogin, openLogin, handleAuth })
   );
 };
 
-LoginContainer.propTypes = {
+LoginHeaderContainer.propTypes = {
   handleClickCloseLogin: PropTypes.func.isRequired,
   openLogin: PropTypes.bool.isRequired,
   handleAuth: PropTypes.func.isRequired,

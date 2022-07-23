@@ -5,7 +5,6 @@ import { ArticlesContainer } from "./containers/articles";
 import { ArticleContainer } from "./containers/articles/article";
 import { UsersContainer } from "./containers/users";
 import { ProfileContainer } from "./containers/profile";
-import { DateContainer } from "./containers/date";
 import { NotFound } from "./components/404";
 import { UserContainer } from "./containers/users/user";
 
@@ -25,7 +24,6 @@ export const App = () => {
             <Route path="users" element={<UsersContainer/>}/>
             <Route path="users/:id" element={<UserContainer/>}/>
             <Route path="profile" element={<ProfileContainer/>}/>
-            <Route path="date/:date" element={<DateContainer/>}/>
             <Route path="*" element={<NotFound/>}/>
           </Route>
         </Routes>

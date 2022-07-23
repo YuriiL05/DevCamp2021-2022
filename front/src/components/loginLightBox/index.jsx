@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import GoogleLogin from "react-google-login";
 import PropTypes from "prop-types";
 
-export const Login = ({ openLogin, handleClickCloseLogin, handleGoogleAuth, handleGoogleAuthFail }) => {
+export const LoginLightBox = ({ openLogin, handleClickCloseLogin, handleGoogleAuth, handleGoogleAuthFail }) => {
 
   return (
         <Dialog open={openLogin} onClose={handleClickCloseLogin} maxWidth="lg">
@@ -52,7 +52,7 @@ export const Login = ({ openLogin, handleClickCloseLogin, handleGoogleAuth, hand
   );
 };
 
-Login.propTypes = {
+LoginLightBox.propTypes = {
   handleGoogleAuth: PropTypes.func.isRequired,
   handleGoogleAuthFail: PropTypes.func.isRequired,
   openLogin: PropTypes.bool.isRequired,

@@ -8,7 +8,6 @@ import { AddOrEditArticleContainer } from "../addOrEditArticle";
 export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd, accessLevels }) => {
   //User Id should be set after Login
   const UserID = 1;
-  const date = new Date();
 
   const handleCloseArt = () => {
     setOpenArtAdd(false);
@@ -20,9 +19,8 @@ export const AddArticleContainer = ({ openArtAdd, setOpenArtAdd, accessLevels })
     const articleData = {
       UserID,
       Title: values.Title,
-      Body: values.Body,
+      Text: values.Text,
       AccessLevelID: values.AccessLevel.value,
-      Date: date,
       file: values?.file
     }
 

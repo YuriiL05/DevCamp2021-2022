@@ -12,7 +12,7 @@ import {
   Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { Link } from 'react-router-dom'
 import React from "react";
 import PropTypes from "prop-types";
@@ -56,7 +56,7 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <BlurOnIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -113,7 +113,7 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
                 ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <BlurOnIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

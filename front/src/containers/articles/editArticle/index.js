@@ -9,7 +9,7 @@ import { AddOrEditArticleContainer } from "../addOrEditArticle";
 export const EditArticleContainer = ({ articleId, openArtEdit, handleCloseEditArt }) => {
   const accessLevels = useOutletContext();
 
-  const { isFetching, refetch, data, isFetched } = useQuery(`article${articleId}`, () => getArticle(articleId));
+  const { isFetching, data, isFetched } = useQuery(`article${articleId}`, () => getArticle(articleId));
   const article = data?.data;
 
   const { mutate } = useMutation( 'editArticle', (data) => putEditArticle(data));
@@ -18,7 +18,7 @@ export const EditArticleContainer = ({ articleId, openArtEdit, handleCloseEditAr
     const articleData = {
       ArticleID: values.ArticleID,
       Title: values.Title,
-      Body: values.Body,
+      Text: values.Text,
       AccessLevelID: values.AccessLevel.value,
       file: values.file
     }

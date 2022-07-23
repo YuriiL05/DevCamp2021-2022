@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import React from "react";
 
 export const ArticleForList = ( { article, handleArticleEdit } ) => {
-  const { ArticleID, UserID, Title, Date } = article;
+  const { ArticleID, Title, CreateDate } = article;
 
   return (
     <div className={"articleList"}>
@@ -14,7 +14,7 @@ export const ArticleForList = ( { article, handleArticleEdit } ) => {
         <div>
           <p>#{ArticleID} <br/>
             Title: {Title} <br/>
-            Date {Date.split('T')[0]}</p>
+            CreateDate {CreateDate.split('T')[0]}</p>
         </div>
       </Link>
       <Button variant="outlined" onClick={handleArticleEdit(ArticleID)}>
@@ -28,7 +28,7 @@ ArticleForList.propTypes = {
   article: PropTypes.shape({
     ArticleID: PropTypes.number.isRequired,
     Title: PropTypes.string.isRequired,
-    Date: PropTypes.string.isRequired
+    CreateDate: PropTypes.string.isRequired
   }),
   handleArticleEdit: PropTypes.func.isRequired
 };
