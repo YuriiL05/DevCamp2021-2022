@@ -14,10 +14,12 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { Link } from 'react-router-dom'
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import userContext from "../../contexts/userContext";
 
-export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
+export const Header = ({ handleClickOpenArt, handleClickOpenLogin }) => {
+  const { authenticated } = useContext(userContext);
   const pages = [
     {
       name: 'Articles',
@@ -26,10 +28,6 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
     {
       name: 'Users',
       link: 'users'
-    },
-    {
-      name: 'Profile',
-      link: 'profile'
     }
   ];
   const settings = ['Profile', 'Logout'];
@@ -58,12 +56,12 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
         <Toolbar disableGutters>
           <BlurOnIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
             sx={{
-              mr: 2,
+              mr: 'auto',
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -72,47 +70,49 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
               textDecoration: 'none',
             }}
           >
-            The NewTech
+            The New<u>Tech</u>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-              <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                <Link to={page.link}>
-                  {page.name}
-                </Link>
-              </MenuItem>
+          {authenticated &&
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                    <Link to={page.link}>
+                      {page.name}
+                    </Link>
+                  </MenuItem>
                 ))}
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
+          }
           <BlurOnIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -130,44 +130,52 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
               textDecoration: 'none',
             }}
           >
-            The NewTech
+            The New<u>Tech</u>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'}, ml: 5}}>
-            {pages.map((page) => (
-              <Link
-                to={page.link}
-                key={page.name}
-              >
-                <Button
-                  variant='outlined'
-                  sx={{ my: 2, color: 'white', display: 'block',
-                    '&:hover': {
-                      borderBottomColor: 'white',
-                    } }}
+          {authenticated &&
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 5 }}>
+              {pages.map((page) => (
+                <Link
+                  to={page.link}
+                  key={page.name}
                 >
-                {page.name}
-                </Button>
-              </Link>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { md: 'flex' } }}>
-            <Button
-              variant='outlined'
-              onClick={handleClickOpenArt}
-              sx={{ my: 2, borderColor: 'white', color: 'white', display: 'block',
-                '&:hover': {
-                  borderBottomColor: 'white',
-                }}}
-            >
-              Add Article
-            </Button>
-          </Box>
+                  <Button
+                    variant='outlined'
+                    sx={{
+                      my: 2, color: 'white', display: 'block',
+                      '&:hover': {
+                        borderBottomColor: 'white',
+                      }
+                    }}
+                  >
+                    {page.name}
+                  </Button>
+                </Link>
+              ))}
+            </Box>
+          }
+          {authenticated &&
+            <Box sx={{ flexGrow: 1, display: { md: 'flex' } }}>
+              <Button
+                variant='outlined'
+                onClick={handleClickOpenArt}
+                sx={{
+                  my: 2, borderColor: 'white', color: 'white', display: 'block',
+                  '&:hover': {
+                    borderBottomColor: 'white',
+                  }
+                }}
+              >
+                Add Article
+              </Button>
+            </Box>
+          }
           <Box sx={{ flexGrow: 0 }}>
-            {!auth &&
+            {!authenticated &&
               <Button
                 onClick={handleClickOpenLogin}
                 variant='outlined'
-                sx={{ my: 2, borderColor: 'white', color: 'white', display: 'block',
+                sx={{ float: 'right', my: 2, borderColor: 'white', color: 'white', display: 'flex',
                   '&:hover': {
                   borderBottomColor: 'white',
                   }}}
@@ -175,7 +183,7 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin, auth }) => {
                 Sign In/Up
               </Button>
             }
-            {auth &&
+            {authenticated &&
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
