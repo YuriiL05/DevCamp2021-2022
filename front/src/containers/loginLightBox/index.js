@@ -6,25 +6,24 @@ import { useMutation } from "react-query";
 import { postGoogleAuth } from "../profile/api/crud";
 import { LoginLightBox } from "../../components/loginLightBox";
 
-export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin, handleAuth }) => {
+export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin }) => {
   const { setUserData } = useContext(userContext);
 
-  const { mutateAsync, data } = useMutation(`googleAuth`, (data) => postGoogleAuth(data));
+  const { mutateAsync } = useMutation(`googleAuth`, (data) => postGoogleAuth(data));
 
   const handleGoogleAuth = async (response) => {
-    try {
-      await mutateAsync({ access_token: response.accessToken })
-    } catch (error) {
-      console.error(error)
-      return;
-    }
-    setUserData(
-      {
-        authenticated: true,
-        user: { accessToken: data?.data?.accessToken },
-        setUserData
-      });
-    handleAuth();
+    const result = await mutateAsync({ access_token: response.accessToken });
+    const authUserData = {
+      authenticated: true,
+      user: {
+        id: result?.data?.UserID,
+        accessToken: result?.data?.accessToken,
+        refreshToken: result?.data?.refreshToken
+      }
+    };
+    setUserData(authUserData);
+    localStorage.setItem('authUserData', JSON.stringify(authUserData));
+    handleClickCloseLogin();
   }
 
   const handleGoogleAuthFail = (response) => {
@@ -45,5 +44,4 @@ export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin, handleA
 LoginHeaderContainer.propTypes = {
   handleClickCloseLogin: PropTypes.func.isRequired,
   openLogin: PropTypes.bool.isRequired,
-  handleAuth: PropTypes.func.isRequired,
 }
