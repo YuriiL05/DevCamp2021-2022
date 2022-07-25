@@ -2,7 +2,6 @@
     display: flex;
 }
 .content {
-    min-height: 95vh;
     min-width: 80%;
     font-size: calc(10px + 2vmin);
     justify-self: center;

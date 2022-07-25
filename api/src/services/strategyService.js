@@ -23,6 +23,7 @@ passport.use(
           LastName,
           Email,
           Avatar,
+          Phone: '+380111111111',
         });
         user = await usersService.getByEmail(Email);
       }

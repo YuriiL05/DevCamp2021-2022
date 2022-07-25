@@ -29,3 +29,15 @@ export const putEditArticle = async (data) => {
   });
 };
 
+export const getLikesForArticle = async (articleId) => {
+  return apiClient.get(`/likes/article/${articleId}`)
+}
+
+export const addLike = async (ArticleID) => {
+  return apiClient.post(`/likes/article/${ArticleID}`)
+}
+
+export const removeLikeByArticleId = async (ArticleID) => {
+  return apiClient.delete(`/likes/article/${ArticleID}/user`)
+}
+

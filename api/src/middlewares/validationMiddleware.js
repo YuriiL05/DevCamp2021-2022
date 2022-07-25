@@ -7,8 +7,9 @@ const validationMiddleware = (rules) => async (req, res, next) => {
 
   for await (const parameterName of Object.keys(rules.body)) {
     const validationResults = [];
+    const reqBody = { ...req.body };
     // eslint-disable-next-line no-prototype-builtins
-    const isParameterPresent = req.body.hasOwnProperty(parameterName);
+    const isParameterPresent = reqBody.hasOwnProperty(parameterName);
 
     if (!isParameterPresent && rules.body[parameterName]['isRequired']) {
       errorMessage[parameterName] = ['is required'];
@@ -17,7 +18,7 @@ const validationMiddleware = (rules) => async (req, res, next) => {
       continue;
     }
 
-    const parameterValue = req.body[parameterName];
+    const parameterValue = reqBody[parameterName];
 
     for await (const validationRule of Object.entries(
       rules.body[parameterName]

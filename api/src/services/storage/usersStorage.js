@@ -18,7 +18,8 @@ module.exports = {
         'LastName',
         'Email',
         'Phone',
-        'Name as UniversityName'
+        'Name as UniversityName',
+        'Users.UniversityID'
       )
       .first()
       .where('UserID', id),

@@ -14,10 +14,12 @@ export const UpdateProfile = ({ user, universities, updateProfile, open, handleC
   const validationSchema = yup.object({
     FirstName: yup
       .string()
+      .min(2, 'Minimum 2 characters')
       .max(128, 'Maximum 128 characters')
       .required('Required'),
     LastName: yup
       .string()
+      .min(2, 'Minimum 2 characters')
       .max(129, 'Maximum 129 characters')
       .required('Required'),
     Email: yup

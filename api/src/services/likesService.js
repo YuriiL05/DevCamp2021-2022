@@ -14,4 +14,7 @@ module.exports = {
   deleteById: async (likeId) => {
     return await likesStorage.deleteById(likeId);
   },
+  deleteByArticleAndUser: async (articleId, userId) => {
+    return await likesStorage.deleteByArticleAndUser(articleId, userId);
+  },
 };

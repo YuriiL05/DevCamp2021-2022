@@ -12,7 +12,7 @@ export const ArticlesListContainer = () => {
 
   const params = queryString.parse(useLocation().search);
 
-  const { isFetching, refetch, data } = useQuery('articles', () => getArticles(params));
+  const { isFetching, data } = useQuery('articles', () => getArticles(params));
   const articles = data?.data;
 
   return (
