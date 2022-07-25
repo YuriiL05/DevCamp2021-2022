@@ -208,7 +208,11 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin }) => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textAlign="center">
+                      <Link to={setting.toLowerCase()}>
+                        {setting}
+                      </Link>
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>

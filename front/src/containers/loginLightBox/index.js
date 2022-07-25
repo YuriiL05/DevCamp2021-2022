@@ -23,6 +23,7 @@ export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin }) => {
     };
     setUserData(authUserData);
     localStorage.setItem('authUserData', JSON.stringify(authUserData));
+    localStorage.setItem('authToken', result?.data?.accessToken);
     handleClickCloseLogin();
   }
 

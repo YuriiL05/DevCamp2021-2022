@@ -19,6 +19,7 @@ const authRouter = require('./routes/authRouter');
 
 const { logger, logError } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
 
@@ -30,6 +31,8 @@ app.use(bodyParser.json());
 
 app.use(logger);
 
+app.use('/auth', authRouter);
+app.use(authMiddleware);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
 app.use('/comments', commentsRouter);
@@ -38,7 +41,6 @@ app.use('/universities', universitiesRouter);
 app.use('/uploads', uploadsRouters);
 app.use('/accessLevels', accessLevelsRouter);
 app.use('/friends', friendsRouter);
-app.use('/auth', authRouter);
 
 app.use(logError);
 app.use(errorHandler);

@@ -5,5 +5,5 @@ module.exports = {
     db('Universities')
       .select('UniversityID as UnId', 'Name as UniversityName')
       .orderBy('UniversityID', 'asc')
-      .timeout(5000),
+      .timeout(1000),
 };

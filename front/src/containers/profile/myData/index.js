@@ -1,33 +1,44 @@
-import { useMutation, useQueries } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getUser } from "../../users/api/crud";
 import { getUniversities, putUpdateProfile } from "../api/crud";
 import { Profile } from "../../../components/profile";
 import { Loading } from "../../../components/loading";
 import * as React from "react";
-import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UpdateProfile } from "../../../components/profile/updateProfile";
+import userContext from "../../../contexts/userContext";
 
-export const MyDataContainer = ({ userId, accessLevels }) => {
+export const MyDataContainer = () => {
   const [userData, setUserData] = useState(undefined);
   const [openProfileEdit, setOpenProfileEdit] = useState(false);
+  const { id: UserID } = useContext(userContext).user;
 
-  const [user, universities] = useQueries([{
-      queryKey: `user${userId}`, queryFn: () => getUser(userId)
-    },
+  const { data: universities, isFetched: universitiesIsFetched } = useQuery(
+    `universities`,
+    () => getUniversities(),
     {
-      queryKey: 'universities', queryFn: () => getUniversities()
-    }]);
+      retry: false
+    }
+  );
 
-  const { mutate } = useMutation(`user${userId}`, (data) => putUpdateProfile(data));
+  const { isFetching: userIsFetching, data: userFromDB } = useQuery(
+    `user${UserID}`,
+    () => getUser(UserID),
+    {
+      retry: false
+    }
+  );
+
+  const { mutate } = useMutation(`user${UserID}`, (data) => putUpdateProfile(data));
 
   const updateProfile = (values, { setSubmitting }) => {
     const profileData = {
-      UserID: userId,
+      UserID,
       FirstName: values.FirstName,
       LastName: values.LastName,
       Phone: values.Phone,
-      UniversityID: values.UniversityID
+      UniversityID: +values.UniversityID,
+      Email: userData?.Email
     }
 
     mutate(profileData);
@@ -44,27 +55,21 @@ export const MyDataContainer = ({ userId, accessLevels }) => {
     setOpenProfileEdit(false);
   };
 
-  if (user.isFetched && !userData) {
-    setUserData(user.data.data);
+  if (!userIsFetching && !userData) {
+    setUserData(userFromDB.data);
   }
 
   return (
     <>
-      {user.isFetching && <Loading/>}
-      {userData && universities.isFetched && <Profile user={userData}
-                                                            universities={universities?.data?.data}
-                                                            handleOpenEditProfile={handleOpenEditProfile} />}
+      {userIsFetching && <Loading/>}
+      {userData && universitiesIsFetched && <Profile user={userData}
+                                                     universities={universities?.data}
+                                                     handleOpenEditProfile={handleOpenEditProfile} />}
       {openProfileEdit && <UpdateProfile user={userData}
-                                         universities={universities?.data?.data}
+                                         universities={universities?.data}
                                          updateProfile={updateProfile}
-                                         accessLevels={accessLevels}
                                          open={openProfileEdit}
                                          handleClose={handleCloseEditProfile} />}
     </>
   );
-};
-
-MyDataContainer.propTypes = {
-  userId: PropTypes.number.isRequired,
-  accessLevels: PropTypes.array.isRequired
 };

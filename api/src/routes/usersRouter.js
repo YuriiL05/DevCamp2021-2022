@@ -1,13 +1,11 @@
 const router = require('express').Router();
 const multer = require('../middlewares/multerToS3');
 const userController = require('../controllers/usersController');
-const authMiddleware = require('../middlewares/authMiddleware');
 const aclMiddleware = require('../middlewares/aclMiddleware');
 const validationMiddleware = require('../middlewares/validationMiddleware');
 const aclRules = require('../configs/acl.rules');
 const validationRules = require('../configs/validation.rules');
 
-router.use(authMiddleware);
 router.get('/', userController.get);
 router.get('/:id', userController.getById);
 router.post(
