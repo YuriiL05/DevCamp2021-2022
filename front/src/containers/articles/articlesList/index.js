@@ -1,15 +1,13 @@
 import React from "react";
 import { useQuery } from 'react-query';
 import queryString from "query-string";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { getArticles } from '../api/crud';
 import { Loading } from "../../../components/loading";
-import { ArticleForList } from "../../../components/articleForList";
+import { ArticleForListContainer } from "../articleForList";
 
 export const ArticlesListContainer = () => {
-  const handleArticleEdit = useOutletContext();
-
   const params = queryString.parse(useLocation().search);
 
   const { isFetching, data } = useQuery('articles', () => getArticles(params));
@@ -18,10 +16,11 @@ export const ArticlesListContainer = () => {
   return (
     <>
       {isFetching && <Loading/>}
-      {articles?.map((article) => (<ArticleForList
-        key={article.ArticleID}
-        article={article}
-        handleArticleEdit={handleArticleEdit}/>
+      {articles?.map((article) => (
+        <ArticleForListContainer
+          key={article.ArticleID}
+          article={article}
+        />
       ))}
     </>
   );

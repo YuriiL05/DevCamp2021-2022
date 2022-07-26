@@ -1,0 +1,21 @@
+.articleListLink:link, .articleListLink:visited{
+    text-decoration: none;
+    font: 25px Arial;
+    display: flex;
+    min-width: 100%;
+    min-height: 100%;
+    margin: 5px;
+}
+
+.articleListLink:hover, .articleListLink:active{
+    color: rgba(0, 0, 0, 0.58);
+}
+
+.articleList {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+    box-shadow: 0 0 5px #000000;
+    border-radius: 4px;
+}
