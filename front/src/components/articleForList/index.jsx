@@ -3,32 +3,36 @@ import { Link, useOutletContext } from "react-router-dom";
 
 import "./style.css"
 import {
-  Avatar,
+  Badge,
+  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  CardMedia, Collapse,
+  CardMedia, Collapse, Grid,
   IconButton, Menu, MenuItem,
   Typography
 } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { red } from "@mui/material/colors";
-import { ExpandMore } from "@mui/icons-material";
-import React from "react";
+import { useState } from "react";
 import UserValidation from "../../propsValidation/UserValidation"
+import { CommentsContainer } from "../../containers/articles/comments";
+import { LikesContainer } from "../../containers/articles/likes";
+import UserIcon from "../userIcon"
+import CardOverflow from '@mui/joy/CardOverflow';
+import { SendOutlined } from "@mui/icons-material";
+import { Input } from "@mui/joy";
+import * as React from "react";
 
 
-function ExpandMoreIcon() {
-  return null;
-}
-
-export const ArticleForList = ( { article, user } ) => {
+export const ArticleForList = ( { article, user, handleAddNewComment, numberOfComments } ) => {
   const handleArticleEdit = useOutletContext();
-  const { ArticleID, Title, CreateDate, File } = article;
+  const { ArticleID, Title, CreateDate, File, Text } = article;
   const { FirstName, LastName, Avatar: ava } = user;
-  const [anchorElCard, setAnchorElCard] = React.useState(null);
+
+  const [anchorElCard, setAnchorElCard] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+  const [commentValue, setCommentValue] = useState('');
 
   const handleOpenCardMenu = (event) => {
     setAnchorElCard(event.currentTarget);
@@ -39,14 +43,25 @@ export const ArticleForList = ( { article, user } ) => {
     setAnchorElCard(null);
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleSendComment = () => {
+    handleAddNewComment({ Text: commentValue })
+    setExpanded(true);
+  };
+
+  const handleCommentChange = (event) => {
+    setCommentValue(event.target.value);
+  };
+
   return (
     <>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ m: 7}}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {FirstName} {LastName}
-            </Avatar>
+            <UserIcon avatar={ava} fullName={FirstName + " " + LastName} size={40}/>
           }
           action={
             <IconButton aria-label="settings" onClick={handleOpenCardMenu}>
@@ -83,33 +98,57 @@ export const ArticleForList = ( { article, user } ) => {
           alt="Paella dish"
         />}
         <CardContent>
-          <Link to={`/articles/${ArticleID}`} className={"articleListLink"}>
-            <Typography variant="body2" color="text.secondary">
-              {Title}
+          <Link to={`/articles/${ArticleID}`} className={"articleListLink"} >
+            <Typography variant="h6" color="text.primary" gutterBottom paragraph>
+              Title: {Title}
             </Typography>
           </Link>
+          <Typography variant="body1" color="text.primary" gutterBottom paragraph>
+            {Text}
+          </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <ExpandMore
-            //expand={expanded}
-            //onClick={handleExpandClick}
-           // aria-expanded={expanded}
-            aria-label="show more"
+          <LikesContainer article={article}/>
+          <Badge color="primary"
+                 badgeContent={numberOfComments}
+                 anchorOrigin={{
+                   vertical: 'top',
+                   horizontal: 'right',
+                 }}
           >
-            <ExpandMoreIcon />
-          </ExpandMore>
+          <Button
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show comments"
+          >
+            Comments
+          </Button>
+        </Badge>
+          <CardOverflow sx={{ display: 'flex', width: '100%' }} >
+              <Input
+                variant="outlined"
+                size="sm"
+                placeholder="Add a comment…"
+                sx={{ flexGrow: 1, ml: 4 }}
+                fullWidth
+                value={commentValue}
+                onChange={handleCommentChange}
+              />
+            <Button variant="plain"
+                    size="sm"
+                    onClick={handleSendComment}
+            >
+              <SendOutlined />
+            </Button>
+          </CardOverflow>
         </CardActions>
-        <Collapse //in={expanded}
+        <Collapse in={expanded}
                   timeout="auto"
                   unmountOnExit>
           <CardContent>
-            <Typography paragraph>Comments:</Typography>
-            <Typography paragraph>
-             Test
-            </Typography>
+            <Grid container spacing={2}>
+              <CommentsContainer articleId={ArticleID}/>
+            </Grid>
           </CardContent>
         </Collapse>
       </Card>

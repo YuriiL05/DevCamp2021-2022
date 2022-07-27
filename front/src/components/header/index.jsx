@@ -1,6 +1,6 @@
 import "./style.css"
 import {
-  AppBar, Avatar,
+  AppBar,
   Box,
   Button,
   Container,
@@ -17,9 +17,10 @@ import { Link } from 'react-router-dom'
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import userContext from "../../contexts/userContext";
+import UserIcon from "../userIcon";
 
 export const Header = ({ handleClickOpenArt, handleClickOpenLogin }) => {
-  const { authenticated } = useContext(userContext);
+  const { authenticated, user } = useContext(userContext);
   const pages = [
     {
       name: 'Articles',
@@ -186,7 +187,7 @@ export const Header = ({ handleClickOpenArt, handleClickOpenLogin }) => {
             {authenticated &&
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <UserIcon avatar={user.Avatar} fullName={user.FullName} size={40} />
                 </IconButton>
               </Tooltip>
             }

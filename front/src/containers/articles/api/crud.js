@@ -41,3 +41,10 @@ export const removeLikeByArticleId = async (ArticleID) => {
   return apiClient.delete(`/likes/article/${ArticleID}/user`)
 }
 
+export const getCommentsForArticle = async (articleId) => {
+  return apiClient.get(`/comments/article/${articleId}`)
+}
+
+export const createNewComment = async (data) => {
+  return apiClient.post(`/comments/`, data)
+}
