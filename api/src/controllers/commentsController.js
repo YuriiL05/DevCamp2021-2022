@@ -14,6 +14,12 @@ module.exports = {
 
     res.status(200).send(comment);
   }),
+  getUserByCommentId: asyncHandler(async (req, res) => {
+    const commentId = req.params.id;
+    const user = await commentsService.getUserByCommentId(commentId);
+
+    res.status(200).send(user);
+  }),
   create: asyncHandler(async (req, res) => {
     const commentBody = req.body;
     const { UserID } = req.auth;

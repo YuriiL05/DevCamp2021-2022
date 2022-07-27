@@ -3,13 +3,15 @@ const authService = require('../services/authService');
 
 module.exports = {
   auth: asyncHandler(async (req, res) => {
-    const { accessToken, refreshToken, UserID } =
+    const { accessToken, refreshToken, UserID, Avatar, FullName } =
       await authService.authorizeById(req.user.UserID);
     if (accessToken) {
       return res.send({
-        accessToken: accessToken,
-        refreshToken: refreshToken,
+        accessToken,
+        refreshToken,
         UserID,
+        Avatar,
+        FullName,
         success: true,
       });
     }

@@ -5,6 +5,7 @@ const validationRules = require('../configs/validation.rules');
 
 router.get('/article/:id', commentsController.getAllForArticle);
 router.get('/:id', commentsController.getById);
+router.get('/:id/user', commentsController.getUserByCommentId);
 router.post(
   '/',
   validationMiddleware(validationRules.comment),

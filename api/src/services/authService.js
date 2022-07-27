@@ -33,7 +33,13 @@ module.exports = {
         Token: refreshToken,
         Date: new Date().toISOString(),
       });
-      return { accessToken, refreshToken, UserID: user.UserID };
+      return {
+        accessToken,
+        refreshToken,
+        UserID: user.UserID,
+        FullName: `${user.FirstName} ${user.LastName}`,
+        Avatar: user.Avatar,
+      };
     }
     return {};
   },

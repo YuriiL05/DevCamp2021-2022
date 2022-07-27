@@ -7,6 +7,9 @@ module.exports = {
   getById: async (commentId) => {
     return await commentsStorage.getById(commentId);
   },
+  getUserByCommentId: async (commentId) => {
+    return await commentsStorage.getUserByCommentId(commentId);
+  },
   create: async (newCommentData) => {
     const [newCommentId] = await commentsStorage.create(newCommentData);
     return newCommentId;
