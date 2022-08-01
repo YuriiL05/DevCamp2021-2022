@@ -13,10 +13,13 @@ export const LoginHeaderContainer = ({ handleClickCloseLogin, openLogin }) => {
 
   const handleGoogleAuth = async (response) => {
     const result = await mutateAsync({ access_token: response.accessToken });
+    console.log(result?.data);
     const authUserData = {
       authenticated: true,
       user: {
         id: result?.data?.UserID,
+        Avatar: result?.data?.Avatar,
+        FullName: result?.data?.FullName,
         accessToken: result?.data?.accessToken,
         refreshToken: result?.data?.refreshToken
       }

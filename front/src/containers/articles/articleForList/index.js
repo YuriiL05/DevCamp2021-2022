@@ -1,25 +1,38 @@
 import React from "react";
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from "react-query";
 import { Loading } from "../../../components/loading";
 import { ArticleForList } from "../../../components/articleForList";
-import { LikesContainer } from "../likes";
-import { Box } from "@mui/material";
 import { getUser } from "../../users/api/crud";
+import { createNewComment, getCommentsForArticle } from "../api/crud";
 
 export const ArticleForListContainer = ({ article }) => {
 
-  const { UserID } = article;
+  const { UserID, ArticleID } = article;
 
   const { isFetching, data } = useQuery(`user${UserID}`, () => getUser(UserID));
   const user = data?.data;
 
+  const { data: comments, isFetched } = useQuery(`comments${ArticleID}`, () => getCommentsForArticle(ArticleID));
+  const numberOfComments = comments?.data?.length;
+
+  const { mutateAsync: addComment } = useMutation(`addLike`, (data) => createNewComment(data))
+
+  const handleAddNewComment = async (newCommentData) => {
+    const newComment = {
+      ...newCommentData,
+      ArticleID
+    }
+    await addComment(newComment);
+  }
+
   return (
     <>
       {isFetching && <Loading/>}
-      <Box>
-          {user && <ArticleForList article={article} user={user}/>}
-          {user && <LikesContainer article={article}/>}
-      </Box>
+      {user && isFetched && <ArticleForList article={article}
+                               user={user}
+                               handleAddNewComment={handleAddNewComment}
+                               numberOfComments={numberOfComments}
+      />}
     </>
   );
 };
