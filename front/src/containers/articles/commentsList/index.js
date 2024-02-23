@@ -19,7 +19,7 @@ export const CommentsListContainer = ({ comment, refetch }) => {
     await replyComment(replyCommentData);
   }
 
-  refetch();
+  //refetch();
 
   return (
     <>

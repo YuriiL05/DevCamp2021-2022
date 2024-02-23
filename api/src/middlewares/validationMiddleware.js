@@ -1,6 +1,6 @@
 import UnprocessableEntityException from '../errors/UnprocessableEntityException.js';
 import db from '../configs/db.js';
-import parameterTypes from '../configs/validation.config.js';
+import { parameterTypes } from '../configs/validation.config.js';
 
 const validationMiddleware = (rules) => async (req, res, next) => {
   const errorMessage = {};
@@ -28,7 +28,7 @@ const validationMiddleware = (rules) => async (req, res, next) => {
 
       switch (validationKey) {
         case 'parameterType':
-          if (!parameterTypes[validationValue].pattern.test(parameterValue)) {
+          if (!parameterTypes[validationValue]?.pattern.test(parameterValue)) {
             validationResults.push(parameterTypes[validationValue].message);
           }
           break;

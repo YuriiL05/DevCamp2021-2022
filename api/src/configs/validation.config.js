@@ -18,6 +18,4 @@ const parameterTypes = {
   },
 };
 
-export default {
-  parameterTypes,
-};
+export { parameterTypes };

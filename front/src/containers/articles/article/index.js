@@ -7,31 +7,29 @@ import { useQuery } from "react-query";
 import { getArticle } from "../api/crud";
 import { Loading } from "../../../components/loading";
 
+const validation = {
+  digits: /^\d+$/,
+  capitalLetters: /^[A-Z]+$/,
+  file: /^\w+\.doc$|pdf$|jpeg$/
+};
+
 export const ArticleContainer = () => {
 
   const handleArticleEdit = useOutletContext();
-
-  const validation = {
-    digits: /^\d+$/,
-    capitalLetters: /^[A-Z]+$/,
-    file: /^\w+\.doc$|pdf$|jpeg$/
-  }
 
   const { id } = useParams();
 
   const { isFetching, data, isFetched } = useQuery(`article${id}`, () => getArticle(id));
   const article = data?.data;
 
-  if (id.match(validation.digits)) {
-    return (
+  if (!id.match(validation.digits)) {
+    return <NotFound />;
+  }
+
+  return (
       <>
         {isFetching && <Loading/>}
         {isFetched && <Article article={article} handleArticleEdit={handleArticleEdit}/>}
       </>
     );
-  } else {
-    return (
-      <NotFound/>
-    );
-  }
 };
