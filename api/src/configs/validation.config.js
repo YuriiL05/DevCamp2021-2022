@@ -18,6 +18,6 @@ const parameterTypes = {
   },
 };
 
-module.exports = {
+export default {
   parameterTypes,
 };

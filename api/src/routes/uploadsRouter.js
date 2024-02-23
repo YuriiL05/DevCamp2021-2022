@@ -1,6 +1,8 @@
-const db = require('../configs/db');
-const router = require('express').Router();
-const multer = require('../middlewares/multerToS3');
+import db from '../configs/db.js';
+import { Router } from 'express';
+import multer from '../middlewares/multerToS3.js';
+
+const router = Router();
 
 //Upload Avatar
 router.post('/avatars/:id', multer.single('avatar'), async (req, res, next) => {
@@ -63,4 +65,4 @@ router.post('/articles/:id', multer.single('file'), async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

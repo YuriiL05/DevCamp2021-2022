@@ -1,6 +1,6 @@
-const articlesStorage = require('./storage/articlesStorage');
+import articlesStorage from './storage/articlesStorage.js';
 
-module.exports = {
+export default {
   getAll: async () => {
     return await articlesStorage.getAll();
   },

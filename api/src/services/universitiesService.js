@@ -1,6 +1,6 @@
-const universitiesStorage = require('./storage/universitiesStorage');
+import universitiesStorage from './storage/universitiesStorage.js';
 
-module.exports = {
+export default {
   getAll: async () => {
     return await universitiesStorage.getAll();
   },

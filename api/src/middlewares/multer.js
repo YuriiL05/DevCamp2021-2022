@@ -1,11 +1,11 @@
-const multer = require('multer');
-const fsExtra = require('fs-extra');
+import multer from 'multer';
+import fsExtra from 'fs-extra';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = `uploads/${req.params.id}`;
 
-    fsExtra.ensureDirSync(uploadPath);
+    fsExtra.ensureDirSync(uploadPath, undefined);
     fsExtra.emptyDirSync(uploadPath);
 
     cb(null, uploadPath);
@@ -27,4 +27,4 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-module.exports = multer({ storage, fileFilter });
+export default multer({ storage, fileFilter });

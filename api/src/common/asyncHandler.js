@@ -6,4 +6,4 @@ const asyncHandler =
       .catch(next);
   };
 
-module.exports = asyncHandler;
+export default asyncHandler;

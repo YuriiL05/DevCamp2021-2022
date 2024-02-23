@@ -1,5 +1,5 @@
-const usersService = require('../services/usersService');
-const articlesService = require('../services/articlesService');
+import usersService from '../services/usersService.js';
+import articlesService from '../services/articlesService.js';
 
 // Users permissions config
 const userCreate = [
@@ -49,7 +49,7 @@ const articleDelete = [
   },
 ];
 
-module.exports = {
+export default {
   userCreate,
   userUpdate,
   userDelete,

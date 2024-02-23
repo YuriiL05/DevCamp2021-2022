@@ -1,6 +1,6 @@
-const db = require('../../configs/db');
+import db from '../../configs/db.js';
 
-module.exports = {
+export default {
   getAll: async () =>
     db('AccessLevels').select('AccessLevelID as value', 'Name as label'),
 };

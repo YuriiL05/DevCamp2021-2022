@@ -1,6 +1,6 @@
-const userStorage = require('./storage/usersStorage');
+import userStorage from './storage/usersStorage.js';
 
-module.exports = {
+export default {
   getAll: async () => {
     return await userStorage.getAll();
   },

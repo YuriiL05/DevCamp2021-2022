@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const passport = require('passport');
-const authController = require('../controllers/authController');
+import { Router } from 'express';
+import passport from 'passport';
+import authController from '../controllers/authController.js';
+
+const router = Router();
 
 router.post(
   '/google',
@@ -15,4 +17,4 @@ router.post(
 router.post('/refresh', authController.refresh);
 router.post('/logout', authController.logout);
 
-module.exports = router;
+export default router;

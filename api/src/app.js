@@ -1,25 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-
-const config = require('./configs/config');
-const passport = require('./services/strategyService');
-const port = config.appPort;
-
-const usersRouter = require('./routes/usersRouter');
-const articlesRouter = require('./routes/articlesRouter');
-const commentsRouter = require('./routes/commentsRouter');
-const likesRouter = require('./routes/likesRouter');
-const universitiesRouter = require('./routes/universitiesRouter');
-const accessLevelsRouter = require('./routes/accessLevelsRouter');
-const friendsRouter = require('./routes/friendsRouter');
-const uploadsRouters = require('./routes/uploadsRouter');
-const authRouter = require('./routes/authRouter');
-
-const { logger, logError } = require('./middlewares/logger');
-const errorHandler = require('./middlewares/errorHandler');
-const authMiddleware = require('./middlewares/authMiddleware');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import config from './configs/config.js';
+import passport from './services/strategyService.js';
+import usersRouter from './routes/usersRouter.js';
+import articlesRouter from './routes/articlesRouter.js';
+import commentsRouter from './routes/commentsRouter.js';
+import likesRouter from './routes/likesRouter.js';
+import universitiesRouter from './routes/universitiesRouter.js';
+import accessLevelsRouter from './routes/accessLevelsRouter.js';
+import friendsRouter from './routes/friendsRouter.js';
+import uploadsRouters from './routes/uploadsRouter.js';
+import authRouter from './routes/authRouter.js';
+import { logger, logError } from './middlewares/logger.js';
+import errorHandler from './middlewares/errorHandler.js';
+import authMiddleware from './middlewares/authMiddleware.js';
 
 const app = express();
 
@@ -45,6 +41,6 @@ app.use('/friends', friendsRouter);
 app.use(logError);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Started at port ${port}`);
+app.listen(config.appPort, () => {
+  console.log(`Started at port ${config.appPort}`);
 });

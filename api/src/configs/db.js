@@ -1,6 +1,7 @@
-const config = require('./config');
+import config from './config.js';
+import knex from 'knex';
 
-module.exports = require('knex')({
+const db = knex({
   client: 'pg',
   connection: {
     host: config.dbHost,
@@ -10,3 +11,5 @@ module.exports = require('knex')({
     database: config.dbDatabase,
   },
 });
+
+export default db;

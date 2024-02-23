@@ -80,12 +80,4 @@ const aclRules = {
   },
 };
 
-module.exports = {
-  Action,
-  Possession,
-  Resources,
-  Roles,
-  allowAny,
-  allowOwn,
-  aclRules,
-};
+export { Action, Possession, Resources, Roles, allowAny, allowOwn, aclRules };

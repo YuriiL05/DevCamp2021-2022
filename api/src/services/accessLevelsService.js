@@ -1,6 +1,6 @@
-const accessLevelsStorage = require('./storage/accessLevelsStorage');
+import accessLevelsStorage from './storage/accessLevelsStorage.js';
 
-module.exports = {
+export default {
   getAll: async () => {
     return await accessLevelsStorage.getAll();
   },

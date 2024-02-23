@@ -1,4 +1,4 @@
-const friendsStorage = require('./storage/friendsStorage');
+import friendsStorage from './storage/friendsStorage.js';
 
 //RelationTypes table
 const FRIEND_TYPE = {
@@ -6,7 +6,7 @@ const FRIEND_TYPE = {
   RequestToFriend: 2,
 };
 
-module.exports = {
+export default {
   getFriendsId: async (id) => {
     return await friendsStorage.getFriends(id, FRIEND_TYPE.Friend);
   },
@@ -19,9 +19,8 @@ module.exports = {
       ReceiverID,
       RelationTypeID: FRIEND_TYPE.RequestToFriend,
     };
-    const [UserRelationID] = await friendsStorage.addRequestToFriend(
-      newRequest
-    );
+    const [UserRelationID] =
+      await friendsStorage.addRequestToFriend(newRequest);
     return UserRelationID;
   },
   addToFriend: async (UserID, ReceiverID) => {

@@ -1,7 +1,9 @@
-const router = require('express').Router();
-const commentsController = require('../controllers/commentsController');
-const validationMiddleware = require('../middlewares/validationMiddleware');
-const validationRules = require('../configs/validation.rules');
+import { Router } from 'express';
+import commentsController from '../controllers/commentsController.js';
+import validationMiddleware from '../middlewares/validationMiddleware.js';
+import validationRules from '../configs/validation.rules.js';
+
+const router = Router();
 
 router.get('/article/:id', commentsController.getAllForArticle);
 router.get('/:id', commentsController.getById);
@@ -18,4 +20,4 @@ router.put(
 );
 router.delete('/:commentId', commentsController.deleteById);
 
-module.exports = router;
+export default router;

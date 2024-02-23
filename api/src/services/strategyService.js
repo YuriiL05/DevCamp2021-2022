@@ -1,8 +1,8 @@
-const usersService = require('./usersService');
-const passport = require('passport');
-const { Strategy: GoogleTokenStrategy } = require('passport-google-token');
-const FacebookTokenStrategy = require('passport-facebook-token');
-const config = require('../configs/config');
+import usersService from './usersService.js';
+import passport from 'passport';
+import { Strategy as GoogleTokenStrategy } from 'passport-google-token';
+import FacebookTokenStrategy from 'passport-facebook-token';
+import config from '../configs/config.js';
 
 passport.use(
   new GoogleTokenStrategy(
@@ -71,4 +71,4 @@ passport.use(
   )
 );
 
-module.exports = passport;
+export default passport;

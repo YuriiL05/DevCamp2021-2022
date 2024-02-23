@@ -1,10 +1,12 @@
-const router = require('express').Router();
-const multer = require('../middlewares/multerToS3');
-const userController = require('../controllers/usersController');
-const aclMiddleware = require('../middlewares/aclMiddleware');
-const validationMiddleware = require('../middlewares/validationMiddleware');
-const aclRules = require('../configs/acl.rules');
-const validationRules = require('../configs/validation.rules');
+import { Router } from 'express';
+import multer from '../middlewares/multerToS3.js';
+import userController from '../controllers/usersController.js';
+import aclMiddleware from '../middlewares/aclMiddleware.js';
+import validationMiddleware from '../middlewares/validationMiddleware.js';
+import aclRules from '../configs/acl.rules.js';
+import validationRules from '../configs/validation.rules.js';
+
+const router = Router();
 
 router.get('/', userController.get);
 router.get('/:id', userController.getById);
@@ -33,4 +35,4 @@ router.delete(
   userController.deleteById
 );
 
-module.exports = router;
+export default router;

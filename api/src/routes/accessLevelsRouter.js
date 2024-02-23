@@ -1,6 +1,8 @@
-const accessLevelsController = require('../controllers/accessLevelsController');
-const router = require('express').Router();
+import accessLevelsController from '../controllers/accessLevelsController.js';
+import { Router } from 'express';
+
+const router = Router();
 
 router.get('/', accessLevelsController.getAll);
 
-module.exports = router;
+export default router;

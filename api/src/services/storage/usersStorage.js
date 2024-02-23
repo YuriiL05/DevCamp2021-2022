@@ -1,6 +1,6 @@
-const db = require('../../configs/db');
+import db from '../../configs/db.js';
 
-module.exports = {
+const usersStorage = {
   getAll: async () => db.select().from('Users').orderBy('UserID').timeout(5000),
 
   getById: async (id) =>
@@ -42,3 +42,5 @@ module.exports = {
 
   deleteById: async (id) => db('Users').where('UserID', id).delete(),
 };
+
+export default usersStorage;

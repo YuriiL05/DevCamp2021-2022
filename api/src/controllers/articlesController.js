@@ -1,9 +1,9 @@
-const asyncHandler = require('../common/asyncHandler');
-const articlesService = require('../services/articlesService');
-const NotFoundException = require('../errors/NotFoundException');
-const BadRequestException = require('../errors/BadRequestException');
+import asyncHandler from '../common/asyncHandler.js';
+import articlesService from '../services/articlesService.js';
+import NotFoundException from '../errors/NotFoundException.js';
+import BadRequestException from '../errors/BadRequestException.js';
 
-module.exports = {
+export default {
   get: asyncHandler(async (req, res) => {
     const articles = await articlesService.getAll();
 

@@ -1,8 +1,8 @@
-const asyncHandler = require('../common/asyncHandler');
-const friendsService = require('../services/friendsService');
-const NotFoundException = require('../errors/NotFoundException');
+import asyncHandler from '../common/asyncHandler.js';
+import friendsService from '../services/friendsService.js';
+import NotFoundException from '../errors/NotFoundException.js';
 
-module.exports = {
+export default {
   getFriends: asyncHandler(async (req, res) => {
     const id = req.params.id;
     const friends = await friendsService.getFriendsId(id);

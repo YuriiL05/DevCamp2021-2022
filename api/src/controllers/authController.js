@@ -1,7 +1,7 @@
-const asyncHandler = require('../common/asyncHandler');
-const authService = require('../services/authService');
+import asyncHandler from '../common/asyncHandler.js';
+import authService from '../services/authService.js';
 
-module.exports = {
+export default {
   auth: asyncHandler(async (req, res) => {
     const { accessToken, refreshToken, UserID, Avatar, FullName } =
       await authService.authorizeById(req.user.UserID);

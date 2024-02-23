@@ -1,6 +1,6 @@
-const UnprocessableEntityException = require('../errors/UnprocessableEntityException');
-const db = require('../configs/db');
-const { parameterTypes } = require('../configs/validation.config');
+import UnprocessableEntityException from '../errors/UnprocessableEntityException.js';
+import db from '../configs/db.js';
+import parameterTypes from '../configs/validation.config.js';
 
 const validationMiddleware = (rules) => async (req, res, next) => {
   const errorMessage = {};
@@ -86,4 +86,4 @@ const validationMiddleware = (rules) => async (req, res, next) => {
   next(new UnprocessableEntityException(errorMessage));
 };
 
-module.exports = validationMiddleware;
+export default validationMiddleware;

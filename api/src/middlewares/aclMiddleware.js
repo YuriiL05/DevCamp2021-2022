@@ -1,6 +1,6 @@
-const ForbiddenException = require('../errors/ForbiddenException');
-const usersService = require('../services/usersService');
-const { aclRules, Possession, Roles } = require('../configs/acl.config');
+import ForbiddenException from '../errors/ForbiddenException.js';
+import usersService from '../services/usersService.js';
+import { aclRules, Possession, Roles } from '../configs/acl.config.js';
 
 const aclMiddleware = (rule) => async (req, res, next) => {
   const rules = Array.isArray(rule) ? rule : [rule];
@@ -44,4 +44,4 @@ const aclMiddleware = (rule) => async (req, res, next) => {
   next(new ForbiddenException());
 };
 
-module.exports = aclMiddleware;
+export default aclMiddleware;

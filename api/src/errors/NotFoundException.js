@@ -5,4 +5,4 @@ class NotFoundException extends Error {
   }
 }
 
-module.exports = NotFoundException;
+export default NotFoundException;

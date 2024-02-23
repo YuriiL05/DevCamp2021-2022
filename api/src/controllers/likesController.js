@@ -1,7 +1,7 @@
-const asyncHandler = require('../common/asyncHandler');
-const likesService = require('../services/likesService');
+import asyncHandler from '../common/asyncHandler.js';
+import likesService from '../services/likesService.js';
 
-module.exports = {
+export default {
   getAllForArticle: asyncHandler(async (req, res) => {
     const articleId = req.params.id;
     const likes = await likesService.getAllForArticle(articleId);

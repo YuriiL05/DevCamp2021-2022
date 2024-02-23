@@ -1,10 +1,12 @@
-const router = require('express').Router();
-const multer = require('../middlewares/multerFilesToS3');
-const articlesController = require('../controllers/articlesController');
-const aclMiddleware = require('../middlewares/aclMiddleware');
-const { articleUpdate, articleDelete } = require('../configs/acl.rules');
-const validationMiddleware = require('../middlewares/validationMiddleware');
-const validationRules = require('../configs/validation.rules');
+import { Router } from 'express';
+import multer from '../middlewares/multerFilesToS3.js';
+import articlesController from '../controllers/articlesController.js';
+import aclMiddleware from '../middlewares/aclMiddleware.js';
+import aclRules from '../configs/acl.rules.js';
+import validationMiddleware from '../middlewares/validationMiddleware.js';
+import validationRules from '../configs/validation.rules.js';
+
+const router = Router();
 
 router.get('/', articlesController.get);
 router.get('/:id', articlesController.getById);
@@ -16,15 +18,15 @@ router.post(
 );
 router.put(
   '/:id',
-  aclMiddleware(articleUpdate),
+  aclMiddleware(aclRules.articleUpdate),
   multer.single('file'),
   validationMiddleware(validationRules.article),
   articlesController.updateById
 );
 router.delete(
   '/:id',
-  aclMiddleware(articleDelete),
+  aclMiddleware(aclRules.articleDelete),
   articlesController.deleteById
 );
 
-module.exports = router;
+export default router;

@@ -1,10 +1,10 @@
-const usersService = require('./usersService');
-const sessionsStorage = require('./storage/sessionsStorage');
-const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
-const config = require('../configs/config');
+import usersService from './usersService.js';
+import sessionsStorage from './storage/sessionsStorage.js';
+import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
+import config from '../configs/config.js';
 
-module.exports = {
+export default {
   authorizeById: async (id) => {
     const user = await usersService.getById(id);
     if (user) {

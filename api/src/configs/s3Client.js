@@ -1,7 +1,7 @@
-const aws = require('aws-sdk');
-const config = require('./config');
+import { S3Client } from '@aws-sdk/client-s3';
+import config from './config.js';
 
-const s3 = new aws.S3({
+const s3 = new S3Client({
   region: config.awsRegion,
   credentials: {
     accessKeyId: config.awsAccessKeyId,
@@ -10,4 +10,4 @@ const s3 = new aws.S3({
   bucketEndpoint: true,
 });
 
-module.exports = { s3 };
+export default s3;

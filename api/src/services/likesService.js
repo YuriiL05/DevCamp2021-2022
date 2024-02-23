@@ -1,6 +1,6 @@
-const likesStorage = require('./storage/likesStorage');
+import likesStorage from './storage/likesStorage.js';
 
-module.exports = {
+export default {
   getAllForArticle: async (articleId) => {
     return await likesStorage.getAllForArticle(articleId);
   },

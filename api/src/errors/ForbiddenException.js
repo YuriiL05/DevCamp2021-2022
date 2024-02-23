@@ -5,4 +5,4 @@ class ForbiddenException extends Error {
   }
 }
 
-module.exports = ForbiddenException;
+export default ForbiddenException;

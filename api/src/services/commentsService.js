@@ -1,6 +1,6 @@
-const commentsStorage = require('./storage/commentsStorage');
+import commentsStorage from './storage/commentsStorage.js';
 
-module.exports = {
+export default {
   getAllForArticle: async (articleId) => {
     return await commentsStorage.getAllForArticle(articleId);
   },

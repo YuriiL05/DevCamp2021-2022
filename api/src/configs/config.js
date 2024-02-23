@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   appPort: process.env.APP_PORT,
   appSecretKey: process.env.APP_SECRETKEY,
   google: {

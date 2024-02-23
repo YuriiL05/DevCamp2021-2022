@@ -1,7 +1,7 @@
-const { s3 } = require('../configs/s3Client');
-const multerS3 = require('multer-s3');
-const multer = require('multer');
-const config = require('../configs/config');
+import s3 from '../configs/s3Client.js';
+import multerS3 from 'multer-s3';
+import multer from 'multer';
+import config from '../configs/config.js';
 
 const storage = multerS3({
   s3: s3,
@@ -25,4 +25,4 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-module.exports = multer({ storage, fileFilter });
+export default multer({ storage, fileFilter });

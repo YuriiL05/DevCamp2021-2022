@@ -79,7 +79,7 @@ const comment = {
   },
 };
 
-module.exports = {
+export default {
   user,
   avatar,
   article,

@@ -1,8 +1,8 @@
-const NotFoundException = require('../errors/NotFoundException');
-const BadRequestException = require('../errors/BadRequestException');
-const UnauthorizedException = require('../errors/UnauthorizedException');
-const ForbiddenException = require('../errors/ForbiddenException');
-const UnprocessableEntityException = require('../errors/UnprocessableEntityException');
+import NotFoundException from '../errors/NotFoundException.js';
+import BadRequestException from '../errors/BadRequestException.js';
+import UnauthorizedException from '../errors/UnauthorizedException.js';
+import ForbiddenException from '../errors/ForbiddenException.js';
+import UnprocessableEntityException from '../errors/UnprocessableEntityException.js';
 const errorHandler = (err, req, res, next) => {
   let errMsg = err.stack;
 
@@ -30,4 +30,4 @@ const errorHandler = (err, req, res, next) => {
   }
 };
 
-module.exports = errorHandler;
+export default errorHandler;

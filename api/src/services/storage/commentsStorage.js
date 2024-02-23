@@ -1,6 +1,6 @@
-const db = require('../../configs/db');
+import db from '../../configs/db.js';
 
-module.exports = {
+export default {
   getAllForArticle: async (articleId) =>
     db('Comments').where({ ArticleID: articleId }).timeout(5000),
 

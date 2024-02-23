@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const { appSecretKey } = require('../configs/config');
-const UnauthorizedException = require('../errors/UnauthorizedException');
+import jwt from 'jsonwebtoken';
+import config from '../configs/config.js';
+import UnauthorizedException from '../errors/UnauthorizedException.js';
 
 const authMiddleware = async (req, res, next) => {
   if (req.headers.authorization) {
@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
     let decoded;
     try {
       decoded = await new Promise((resolve, reject) => {
-        jwt.verify(token, appSecretKey, null, (err, result) => {
+        jwt.verify(token, config.appSecretKey, null, (err, result) => {
           if (err) {
             return reject(err);
           }
@@ -27,4 +27,4 @@ const authMiddleware = async (req, res, next) => {
   next(new UnauthorizedException());
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

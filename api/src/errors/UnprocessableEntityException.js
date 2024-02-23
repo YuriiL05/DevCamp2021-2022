@@ -6,4 +6,4 @@ class UnprocessableEntityException extends Error {
   }
 }
 
-module.exports = UnprocessableEntityException;
+export default UnprocessableEntityException;

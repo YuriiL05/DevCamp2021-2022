@@ -1,7 +1,7 @@
-const asyncHandler = require('../common/asyncHandler');
-const commentsService = require('../services/commentsService');
+import asyncHandler from '../common/asyncHandler.js';
+import commentsService from '../services/commentsService.js';
 
-module.exports = {
+export default {
   getAllForArticle: asyncHandler(async (req, res) => {
     const articleId = req.params.id;
     const comments = await commentsService.getAllForArticle(articleId);

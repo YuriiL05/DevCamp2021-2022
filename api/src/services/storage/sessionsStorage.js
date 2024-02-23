@@ -1,6 +1,6 @@
-const db = require('../../configs/db');
+import db from '../../configs/db.js';
 
-module.exports = {
+export default {
   getCountForUser: async (id) =>
     db.select().first().count().from('Sessions').where('UserID', id),
 

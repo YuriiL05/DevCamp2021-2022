@@ -1,6 +1,6 @@
-const db = require('../configs/db');
-const config = require('../configs/config');
-const logToFile = require('../configs/logToFile');
+import db from '../configs/db.js';
+import config from '../configs/config.js';
+import logToFile from '../configs/logToFile.js';
 
 const logger = async (req, res, next) => {
   const loggedData = {
@@ -27,7 +27,4 @@ const logError = (err, req, res, next) => {
   next(err);
 };
 
-module.exports = {
-  logger,
-  logError,
-};
+export { logger, logError };
